@@ -10,8 +10,8 @@
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
-repertoire = './'; % Chemin d'acces au code compile (NB: enlever le ./ sous Windows)
-executable = 'Exercice2_2020'; % Nom de l'executable (NB: ajouter .exe sous Windows)
+repertoire = ''; % Chemin d'acces au code compile (NB: enlever le ./ sous Windows)
+executable = 'Exercice2_2020.exe'; % Nom de l'executable (NB: ajouter .exe sous Windows)
 input = 'configuration.in'; % Nom du fichier d'entree de base MODIFIER SELON VOS BESOINS
 
 nsimul = 4; % Nombre de simulations a faire
