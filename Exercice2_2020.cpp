@@ -67,7 +67,7 @@ private:
   double tfin=0.e0;      // Temps final
   unsigned int nsteps=1; // Nombre de pas de temps
   double l_k=0.e0;       // longueur caracteristique du champ magnetique 
-  double E0=0.e0;	 // intensite du champ electrique
+
   valarray<double> x0=valarray<double>(0.e0,2); // vecteur contenant la position initiale du ballon en
 			 		        // utilisant la sequence index-valeur: 0-x, 1-z
   valarray<double> v0=valarray<double>(0.e0,2); // vecteur contenant la vitesse initiale du ballon en
@@ -107,6 +107,7 @@ protected:
 	double charge=0.e0; 	 // charge de la particule
 	double mass=1.e0;      // mass de la particule
 	double B0=0.e0;	 // intensite du champ magnetique
+	double E0=0.e0;	 // intensite du champ electrique
 
   // donnes internes
   double t,dt;        // Temps courant pas de temps
@@ -229,47 +230,49 @@ public:
     unsigned int iteration=0;
     double error=999e0;
     valarray<double> a=valarray<double>(0.e0,2);
-    valarray<double> xold=valarray<double>(x);
-    valarray<double> vold=valarray<double>(v);
+    //valarray<double> xold=valarray<double>(x);
+    //valarray<double> vold=valarray<double>(v);
     
-    
-    t += dt; // mis a jour du temps
     
    
+    //Définition de y_n
+	valarray<double> y_n({x[0],x[1],v[0],v[1]});
+	
+   //Définition de y_n+1
+	valarray<double> y_n1(y_n);
+	
 		do{
-		
-			//Définition de y_n+1
-			valarray<double> y_n1;
 			
 			//Mise à jour de l'accélération
 			a = acceleration(a);
-			
-			//Définition de y_n
-			valarray<double> y_n({xold[0],xold[1],vold[0],vold[1]});
 			
 			//Définition de f(y_n+1)	
 			valarray<double> f_y_n1({y_n1[2],y_n1[3],a[0],a[1]});
 			
 			//Mise à jour des variables
-			y_n1 = y_n + f_y_n1*dt;
+			y_n1 = (y_n + f_y_n1*dt);
 			
-			 //Définition d^'un vecteur pour l'errer
+			 //Définition d^'un vecteur pour l'erreur
 			valarray<double> vecterror(0.0, 4);
-			vecterror = y_n1 - y_n - f_y_n1*dt;
+			vecterror = (y_n1 - y_n - f_y_n1*dt);
 			
 			error = norm2(vecterror); //mise à jour de l'erreur 
 			iteration += 1; //Implementation de l'iteration
 			
-			//Stockage des valeurs pour la prochaine itération
-			xold = x; 
-			vold = v;
+			//~ //Stockage des valeurs pour la prochaine itération
+			//~ xold = x; 
+			//~ vold = v;
 			
-		}while((iteration < maxit) and (error < tol));
-
+		}while((iteration < maxit) and (error > tol));
+		
+		x = valarray<double>({y_n1[0], y_n1[1]});
+		v = valarray<double>({y_n1[2], y_n1[3]});
+		
+		t += dt; // mis a jour du temps
   }
 };
 
-// Extension de la class Engine implementant l'integrateur d'Euler -> Explicite ????
+// Extension de la class Engine implementant l'integrateur d'Euler -> Explicite 
 class EngineEuler: public Engine
 {
 public:
@@ -305,10 +308,13 @@ public:
   void step()
   {
      valarray<double> a=valarray<double>(0.e0,2);
+     
+	//Mise à jour de l'accélération
+	a = acceleration(a);
 
      x += v*dt; // TODO
-     v[0] += a[0]*v[1]*dt; // TODO
-     v[1] += a[1]*v[0]*dt; //v[0] a été mis à jour et est devenu vx_n+1
+     v[0] += a[0]*dt; // TODO
+     v[1] += (charge/mass)*(E0 + B0*v[0])*dt; 
 
      t += dt; // mis a jour du temps
   }
@@ -329,19 +335,30 @@ public:
   void step()
   {
     valarray<double> a=valarray<double>(0.e0,2);
+    
+    // On conserve les valeurs de x et y pour la dernière formule
+    valarray<double> xold(x);
+	valarray<double> vold(v);
 
-    acceleration(a); // definir l'acceleration
+    acceleration(a); //  Mise à jour de l'acceleration
     
     //Définition de k1
-	valarray<double> xk1(dt*x);
-	valarray<double> vk1(dt*v);
+	valarray<double> xk1(dt*v);
+	valarray<double> vk1(dt*a);
+	
+	//Mise à jour de x et v
+	x += 1.0/2.0 *xk1;
+	v += 1.0/2.0 *vk1;
+	
+	//Mise à jour de l accélération
+	acceleration(a);
 	
 	 //Définition de k2
-	valarray<double> xk2(dt*(x+1.0/2.0*xk1)); // -> A VERIFIER (Eq 2.116)
-	valarray<double> vk2(dt*(v+1.0/2.0*vk1)); 
+	valarray<double> xk2(dt*v); // ->(Eq 2.116)
+	valarray<double> vk2(dt*a); 
 	   
-    x += xk2; // TODO
-    v += vk2; // TODO
+    x = xold + xk2; // TODO
+    v = vold + vk2; // TODO
 
     t += dt; // mis a jour du temps
     
@@ -374,22 +391,22 @@ public:
   void step()
   {
    // Création de la variable beta
-	double beta = rotationVitessesBorisBuneman()*dt;
+	double beta(rotationVitessesBorisBuneman()*dt);
 	
 	//Définition de x(ti) et v(ti)
-	valarray<double> x_(x + v*dt/2.0);
-	valarray<double> v_(v+ charge/mass *Ez() *dt/2.0);
+	valarray<double> x_(x + (v*dt/2.0));
+	valarray<double> v_(v + (charge/mass)*Ez()*dt/2.0);
 	
 	 //Définition de vx(ti+1) et vz(ti+1)
 	double v_xp = (((1-beta*beta/4.0)*v_[0] - beta*v_[1])/(1+beta*beta/4.0)); 
-	double v_zp = (((1-beta*beta/4.0)*v_[1] - beta*v_[0])/(1+beta*beta/4.0)); 
+	double v_zp = (((1-beta*beta/4.0)*v_[1] + beta*v_[0])/(1+beta*beta/4.0)); 
 	
 	//Vecteur v+ 
 	valarray<double> vp({v_xp, v_zp});
 	
     
-    v = vp + charge/mass*Ez()*dt/2.0; // TODO
-	x = x_ + v*dt/2.0; // changement de la position après la vitesse car on a besoin de la vitesse à t+1
+    v = (vp + (charge/mass)*Ez()*dt/2.0); // TODO
+	x = (x_ + v*dt/2.0); // changement de la position après la vitesse car on a besoin de la vitesse à t+1
 	
     t += dt; // mis a jour du temps
     
