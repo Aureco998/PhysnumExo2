@@ -1,0 +1,149 @@
+% debut d'un fichier latex standard
+\documentclass[a4paper,12pt,twoside]{article}
+% Tout ce qui suit le symbole "%" est un commentaire
+% Le symbole "\" désigne une commande LaTeX
+
+% pour l'inclusion de figures en eps,pdf,jpg, png
+\usepackage{graphicx}
+
+% quelques symboles mathematiques en plus
+\usepackage{amsmath}
+
+% le tout en langue francaise
+%\usepackage[francais]{babel}
+
+% on peut ecrire directement les caracteres avec l'accent
+%    a utiliser sur Linux/Windows (! dépend de votre éditeur !)
+%\usepackage[utf8]{inputenc} % Pour TeXworks
+%\usepackage[latin1]{inputenc} % Pour Kile
+%\usepackage[T1]{fontenc}
+
+%    a utiliser sur le Mac ???
+%\usepackage[applemac]{inputenc}
+
+%-----------------------------------------------------------------------------------------------------------------
+% Choix du bon package en fonction de la compilation
+% ----------------------------------------------------------------------------------------------------------------
+
+\usepackage{babel} %indique qu'on veut travailler en francais, en r�glant les accents, les espaces ins�cables, etc. automatiquement
+\usepackage{iftex}
+
+\ifPDFTeX
+	\usepackage[utf8]{inputenc} %input encoding
+	\usepackage[T1]{fontenc} %font encoding with pdflatex
+	\usepackage{lmodern}
+\else
+	\ifXeTeX
+		\usepackage{fontspec} %input encoding
+	\else 
+		\usepackage{luatextra}
+	\fi
+	\defaultfontfeatures{Ligatures=TeX}
+\fi
+
+% pour l'inclusion de liens dans le document 
+\usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+
+\paperheight=297mm
+\paperwidth=210mm
+
+\setlength{\textheight}{235mm}
+\setlength{\topmargin}{-1.2cm} % pour centrer la page verticalement
+%\setlength{\footskip}{5mm}
+\setlength{\textwidth}{16.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{-0.3cm}
+
+\pagestyle{plain}
+
+% nouvelles commandes LaTeX, utilis\'ees comme abreviations utiles
+\def \be {\begin{equation}}
+\def \ee {\end{equation}}
+\def \dd  {{\rm d}}
+
+\newcommand{\mail}[1]{{\href{mailto:#1}{#1}}}
+\newcommand{\ftplink}[1]{{\href{ftp://#1}{#1}}}
+%
+% latex SqueletteRapport.tex      % compile la source LaTeX
+% xdvi SqueletteRapport.dvi &     % visualise le resultat
+% dvips -t a4 -o SqueletteRapport.ps SqueletteRapport % produit un PostScript
+% ps2pdf SqueletteRapport.ps      % convertit en pdf
+
+% pdflatex SqueletteRapport.pdf    % compile et produit un pdf
+
+% ======= Le document commence ici ======
+
+\begin{document}
+
+	% Le titre, l'auteur et la date
+	\title{Particule charg\'ee dans un champ \'electromagn\'etique}
+	\author{Coppex Aur\'elie H\'el\`ene, Ventura Vincent\\  % \\ pour fin de ligne
+	{\small \mail{aurelie.coppex@epfl.ch, vincent.ventura@epfl.ch}}}
+	\date{\today}\maketitle
+	\tableofcontents % Table des matieres
+
+	% Quelques options pour les espacements entre lignes, l'indentation 
+	% des nouveaux paragraphes, et l'espacement entre paragraphes
+	%\baselineskip=16pt
+	%\parindent=0pt
+	%\parskip=12pt
+
+
+
+\section{Introduction} %------------------------------------------
+
+
+\section{Calculs analytiques}
+
+
+
+	\subsection{Cas avec friction}
+		\subsubsection{\'Equations du mouvement}
+
+		
+
+		\subsubsection{Puissance de la force de friction}
+
+
+	\subsection{Cas sans friction}
+	
+		\subsubsection{Position d'\'equilibre}
+
+		.
+
+		\subsubsection{\'Energie potentielle}
+
+
+		\subsubsection{Vitesse initiale}
+
+
+
+\section{Simulations et Analyses}
+
+	\subsection{\'Etudes de convergence de la position et de la vitesse sans friction}
+
+
+	\subsection{\'Etude de convergence de l'erreur $|x(v=0) - x_{eq}|$}
+
+		
+	\subsection{\'Etudes de convergence avec friction et comparaison de la puissance et de la d\'eriv\'ee temporelle de l'\'energie m\'ecanique}
+
+		
+	\subsection{Cas du positron}
+	
+	
+
+
+\section{Conclusions}
+
+
+
+%-----------------------------------------------------------
+
+
+\begin{thebibliography}{99}
+ \bibitem{NdC}
+ L. Villard avec la contribution de A. L\"auchli {\it Notes de cours Physique numérique I-II, version 20.1} (2020)
+\end{thebibliography}
+
+\end{document} %%%% THE END %%%%
