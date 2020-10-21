@@ -1,13 +1,9 @@
 \babel@toc {nil}{}
-\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
-\contentsline {section}{\numberline {2}Calculs analytiques}{2}{section.2}
-\contentsline {subsection}{\numberline {2.1}Cas avec friction}{2}{subsection.2.1}
-\contentsline {subsubsection}{\numberline {2.1.1}\'Equations du mouvement}{2}{subsubsection.2.1.1}
-\contentsline {subsubsection}{\numberline {2.1.2}Puissance de la force de friction}{2}{subsubsection.2.1.2}
-\contentsline {subsection}{\numberline {2.2}Cas sans friction}{2}{subsection.2.2}
-\contentsline {subsubsection}{\numberline {2.2.1}Position d'\'equilibre}{2}{subsubsection.2.2.1}
-\contentsline {subsubsection}{\numberline {2.2.2}\'Energie potentielle}{2}{subsubsection.2.2.2}
-\contentsline {subsubsection}{\numberline {2.2.3}Vitesse initiale}{2}{subsubsection.2.2.3}
+\contentsline {section}{\numberline {1}Introduction}{1}{section.1}
+\contentsline {section}{\numberline {2}Calculs analytiques}{1}{section.2}
+\contentsline {subsection}{\numberline {2.1}\'Equations du mouvement}{1}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}\'Energie m\'ecanique et sa conservation}{2}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}Solution analytique}{2}{subsection.2.3}
 \contentsline {section}{\numberline {3}Simulations et Analyses}{2}{section.3}
 \contentsline {subsection}{\numberline {3.1}\'Etudes de convergence de la position et de la vitesse sans friction}{2}{subsection.3.1}
 \contentsline {subsection}{\numberline {3.2}\'Etude de convergence de l'erreur $|x(v=0) - x_{eq}|$}{2}{subsection.3.2}

@@ -95,27 +95,51 @@
 
 \section{Calculs analytiques}
 
+	Dans cette partie, tous les calculs sont faits avec les valeurs suivantes :
+	la masse de la particule : $m = 1.6726 \cdot 10^{-27}$ kg, 
+	la charge de la particule :	$q = 1.6022 \cdot 10^{-19}$ C ,
+	sa position initiale : $\vec{v_0} = (v_{x0}, v_{y0})$.
+	La particule est plongée dans un champ \'electrique uniforme $\vec{E} = E_0 \hat{z}$ et un champ magn\'etique uniforme $\vec{B} = B_0 \hat{y}$.
 
 
-	\subsection{Cas avec friction}
-		\subsubsection{\'Equations du mouvement}
-
+	\subsection{\'Equations du mouvement}
+	
+		On cherche tout d'abord \`a \'etablir les \'equations diff\'erencielles du mouvement sous la forme $\frac{d\bf y}{dt} = {\bf f(\bf{y}})$ avec ${\bf y} = (x, z, v_x, v_z)$. 
+		Pour cela, on applique la $2^{eme}$ loi de Newton ($\sum{\bf F} = m \bf a$ ) et on la projette sur les axes x, y et z.
+		
+		Il en r\'esulte :
+		
+		\begin{equation}
+			{\bf F_p  + F_L} = m \bf{a}
+		\end{equation}
+		
+		La force de pesanteur est n\'egligeable pour une particule \'el\'ementaire. Il ne reste donc que la force de Lorentz qui est donn\'ee par : $\vec{F} = q(\vec{E}+\vec{v} \times \vec{B})$.
+		
+		Les projections sur les axes donnent:
+		
+		\begin{equation}
+			{\bf(Ox):} -qB_0 \dot{z} = m \ddot{x}  \iff \ddot{x} = -\frac{qB_0}{m} \dot{z}
+		\end{equation}
+		
+		\begin{equation}
+			{\bf(Oy):}  0 = m \ddot{y} \iff \ddot{y} = 0
+		\end{equation}
+		
+		\begin{equation}
+			{\bf(Oz):}  q(E_0 + B_0\dot{x}) = m \ddot{z} \iff \ddot{z} = \frac{q}{m} (E_0+B_0 \dot{x}) 
+		\end{equation}
+		
+		L'\'equation du mouvement s'\'ecrit donc :
+		\begin{equation}
+		\frac{d\bf y}{dt} = \begin{pmatrix}  \dot x \\ \dot z \\ -\frac{qB_0}{m} \dot{z} \\ \frac{q}{m} (E_0+B_0 \dot{x} \end{pmatrix}
+		\end{equation}
 		
 
-		\subsubsection{Puissance de la force de friction}
-
-
-	\subsection{Cas sans friction}
+	\subsection{\'Energie m\'ecanique et sa conservation}
 	
-		\subsubsection{Position d'\'equilibre}
-
-		.
-
-		\subsubsection{\'Energie potentielle}
-
-
-		\subsubsection{Vitesse initiale}
-
+	
+	
+	\subsection{Solution analytique}
 
 
 \section{Simulations et Analyses}
@@ -144,6 +168,11 @@
 \begin{thebibliography}{99}
  \bibitem{NdC}
  L. Villard avec la contribution de A. L\"auchli {\it Notes de cours Physique numérique I-II, version 20.1} (2020)
+ 
+ \bibitem{Notes}
+ L. Villard, Dr C. Sommariva {\it \'Enonc\'e de l'exercice 2} (2020)
+ \url{https://moodle.epfl.ch/pluginfile.php/2839539/mod_resource/content/1/Exercice2_2020.pdf}
+ 
 \end{thebibliography}
 
 \end{document} %%%% THE END %%%%
