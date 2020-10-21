@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.12.5)  21 OCT 2020 11:32
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.12.5)  21 OCT 2020 15:33
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -561,26 +561,26 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 ) [1
 
 ]
-Overfull \hbox (26.96942pt too wide) in paragraph at lines 151--151
-[]\TU/lmr/bx/n/14.4 Études de convergence avec friction et comparaison de la pu
-issance
+[2] [3]
+Underfull \hbox (badness 1168) in paragraph at lines 253--254
+[]\TU/lmr/m/n/12 VEREIN SCHWEIZERISCHER MATHEMATIK- UND PHYSIKLEHRER et al.
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 176.
-[2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 176.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 257.
+[4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 257.
  (./RapportExercice2_Coppex_Ventura.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 176.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 176.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 176.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 257.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 257.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 257.
  ) 
 Here is how much of TeX's memory you used:
  20074 strings out of 494876
- 373615 string characters out of 6176006
- 465705 words of memory out of 5000000
- 23868 multiletter control sequences out of 15000+600000
- 537616 words of font info for 60 fonts, out of 8000000 for 9000
+ 373481 string characters out of 6176006
+ 470987 words of memory out of 5000000
+ 23872 multiletter control sequences out of 15000+600000
+ 537600 words of font info for 58 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,8n,39p,348b,443s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,8n,39p,348b,447s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on RapportExercice2_Coppex_Ventura.pdf (2 pages).
+Output written on RapportExercice2_Coppex_Ventura.pdf (4 pages).

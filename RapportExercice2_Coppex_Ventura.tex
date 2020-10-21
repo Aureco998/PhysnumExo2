@@ -42,7 +42,7 @@
 \fi
 
 % pour l'inclusion de liens dans le document 
-\usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage[colorlinks,bookmarks=false,linkcolor=black,urlcolor=blue, citecolor=black]{hyperref}
 
 \paperheight=297mm
 \paperwidth=210mm
@@ -92,13 +92,22 @@
 
 \section{Introduction} %------------------------------------------
 
+	Dans cet exercice, il est question d'une particule charg\'ee dans un champ \'electromagn\'etique subissant une force de Lorentz. 
+	
+	Le but est d'en \'etudier la trajectoire afin de pouvoir analyser les propri\'et\'es de stabilit\'e et de convergence des cinq sch\'emas suivants : 
+	Euler explicite, Euler implicite, Euler-Cromer, Runge-Kutta d'ordre 2 et Boris Buneman.
+	\newpage
 
 \section{Calculs analytiques}
 
 	Dans cette partie, tous les calculs sont faits avec les valeurs suivantes :
+	
 	la masse de la particule : $m = 1.6726 \cdot 10^{-27}$ kg, 
+	
 	la charge de la particule :	$q = 1.6022 \cdot 10^{-19}$ C ,
+	
 	sa position initiale : $\vec{v_0} = (v_{x0}, v_{y0})$.
+	
 	La particule est plongée dans un champ \'electrique uniforme $\vec{E} = E_0 \hat{z}$ et un champ magn\'etique uniforme $\vec{B} = B_0 \hat{y}$.
 
 
@@ -117,7 +126,7 @@
 		
 		Les projections sur les axes donnent:
 		
-		\begin{equation}
+		\begin{equation}\label{xpp}
 			{\bf(Ox):} -qB_0 \dot{z} = m \ddot{x}  \iff \ddot{x} = -\frac{qB_0}{m} \dot{z}
 		\end{equation}
 		
@@ -125,7 +134,7 @@
 			{\bf(Oy):}  0 = m \ddot{y} \iff \ddot{y} = 0
 		\end{equation}
 		
-		\begin{equation}
+		\begin{equation}\label{zpp}
 			{\bf(Oz):}  q(E_0 + B_0\dot{x}) = m \ddot{z} \iff \ddot{z} = \frac{q}{m} (E_0+B_0 \dot{x}) 
 		\end{equation}
 		
@@ -137,24 +146,91 @@
 
 	\subsection{\'Energie m\'ecanique et sa conservation}
 	
+		L'\'energie m\'ecanique est d\'efinie comme : $E_{mec} = E_{cin} + E_{pot}$. Or, l'\'energie cin\'etique est connue et vaut $E_{cin} = \frac{1}{2} m {\vec{v}}^2$.
+		Il ne reste donc plus qu'\`a calculer l'\'energie potentielle. Pour cela, la formule $E_{pot} = \int_P^O \vec{F}\, \mathrm d\vec{l}$ \cite{FT}. Ce qui donne :
 	
+			\begin{equation}
+				E_{pot} = qE_0 (z_0-z)
+			\end{equation}
+		
+		Ainsi, l'\'equation suivante est obtenue :
+	
+			\begin{equation}
+				E_{mec} = \frac{1}{2}m(v_x^2+v_z^2) + qE_0(z-z_o)
+			\end{equation}
+		
+		Pour montrer que cette \'energie est conserv\'ee, il faut en calculer la d\'eriv\'ee:
+	
+			\begin{equation}
+				\frac{dE_{mec}}{dt} = \frac{1}{2} m(2\dot{x}\ddot{x} + 2\dot{z}\ddot{z}) - 	qE_0\dot{z} 
+			\end{equation}
+		En appliquant les équations (\ref{xpp}) et (\ref{zpp}), on trouve:
+	
+			\begin{equation}
+				\frac{dE_{mec}}{dt}= -qB_0\dot{z}\dot{x}+qE_0\dot{z}+qB_0\dot{x}\dot{z}-qE_0\dot{z} = 0
+			\end{equation}
+	
+		Ce qui prouve que l'\'energie m\'ecanique est conserv\'ee.
 	
 	\subsection{Solution analytique}
+	
+		Les conditions initiales sont les suivantes : $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\hat{z}$.
+		
+		En int\'egrant les \'equations (\ref{xpp}) et (\ref{zpp}), il est possible de trouver $\dot{x}$ et $\dot{z}$ :
+		
+			\begin{equation}\label{aa}
+				\left \{
+				\begin{array}{r c l}
+					\dot{x} & = & -\frac{qB_0}{m}z + C_1  \\
+					\dot{z} & = & \frac{q}{m} (E_0t + B_0x) + C_2\\
+				\end{array}
+				\right .
+			\end{equation}
+		
+		En appliquant la condition initiale $ \vec{v}(0) = v_0\hat{z}$ à (\ref{aa}), on obtient $C_1 = \frac{qB_0}{m}z_0 $ et $C_2 = v_0 -\frac{q}{m}B_0x_0$.
+
+			
+		En les appliqant dans les \'equations de la vitesse, il en ressort :
+				
+			\begin{equation}\label{v}
+				\left \{
+				\begin{array}{r c l}
+					v_x(t) & = & \frac{qB_0}{m}(z_0 - z)\\
+					v_z(t) & = & v_0 + \frac{qB_0}{m}(x-x_0) + \frac{qE_0}{m}t\\
+				\end{array}
+				\right .
+			\end{equation}
+			
+		\`A partir desquelles (\ref{v}) il est possible de trouver les \'equations de l'acc\'eleration:
+		
+			\begin{equation} \label{diff}
+				\left \{
+				\begin{array}{r c l}
+					\ddot{x} - \frac{q^2B_0^2}{m^2}x & = & \frac{q^2B_0E_0}{m^2}t-\frac{qB_0 }{m}v_0 - \frac{q^2B_0^2}{m^2}x_0\\
+					
+					\ddot{z} -\frac{q^2B_0E_0}{m^2}z& = &  \frac{qE_0}{m} -\frac{q^2B_0E_0}{m^2}z_0\\
+				\end{array}
+				\right .
+			\end{equation}
+	
+	En r\'esolvant les \'equations diff\'erentielles du 2\`eme ordre (\ref{diff}), on trouve la solution analytique suivante :
+	
+		\begin{equation} 
+			\left \{
+			\begin{array}{r c l}
+				x(t) & = & \frac{qB_0v_0}{m} \cos(\frac{qB_0}{m}t) + \frac{E_0m}{qB_0^2} \sin(\frac{qB_0}{m}t) -\frac{E_0}{B_0}t - \frac{mv_0}{qB_0} \\
+				v_x(t) & = & \frac{q^2B_0^2v_0}{m^2} \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t) -\frac{E_0}{B_0} \\
+				z(t) & = & -\frac{mE_0}{qB_0^2} \cos(\frac{qB_0}{m}t) + \frac{mv_0}{qB_0} \sin(\frac{qB_0}{m}t) + \frac{mE_0}{qB_0^2}\\
+				v_z(t) & = & \frac{E_0}{B_0} \sin(\frac{qB_0}{m}t) + v_0\cos(\frac{qB_0}{m}t)
+			\end{array}
+			\right .
+		\end{equation}
+	
+
 
 
 \section{Simulations et Analyses}
 
-	\subsection{\'Etudes de convergence de la position et de la vitesse sans friction}
-
-
-	\subsection{\'Etude de convergence de l'erreur $|x(v=0) - x_{eq}|$}
-
-		
-	\subsection{\'Etudes de convergence avec friction et comparaison de la puissance et de la d\'eriv\'ee temporelle de l'\'energie m\'ecanique}
-
-		
-	\subsection{Cas du positron}
-	
 	
 
 
@@ -172,6 +248,9 @@
  \bibitem{Notes}
  L. Villard, Dr C. Sommariva {\it \'Enonc\'e de l'exercice 2} (2020)
  \url{https://moodle.epfl.ch/pluginfile.php/2839539/mod_resource/content/1/Exercice2_2020.pdf}
+ 
+ \bibitem{FT}
+ VEREIN SCHWEIZERISCHER MATHEMATIK- UND PHYSIKLEHRER  et al. {\it Formulaires et tables : mathématiques, physique, chimie} Editions G d'Encre, 2015. ISBN 978-2-940501-41-0
  
 \end{thebibliography}
 
