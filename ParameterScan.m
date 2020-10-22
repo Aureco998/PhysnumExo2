@@ -6,7 +6,11 @@
 % pour remplacer la valeur d'un parametre du fichier d'input
 % par la valeur scannee.
 %
+% Nom du fichier d'output a analyser (modifiez selon vos besoins)
+filename = 'output.out'; 
 
+% Chargement des donnees
+data = load(filename);
 %% Parametres %%
 %%%%%%%%%%%%%%%%
 
@@ -46,9 +50,8 @@ end
 %NE PAS MODIFIER 
 
 %Erreur max sur la position
-error = zeros(1,nsimul);
-error_x = zeros(1, nsimul);
-error_z = zeros(1, nsimul);
+
+error_pos_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
@@ -56,22 +59,19 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     zend = data(end,3); % Extraire le z final
     x_th = ((1.6726e-27/(1.6022e-19*5))*4e5*cos(1.6022e-19*5*1.e-8/1.6726e-27)-(1.6726e-27*4e5/(1.6022e-19*5))); % TODO: Entrer la vraie solution analytique a tfin
     z_th = ((4e5*1.6726e-27/(1.6022e-19*5))*sin(1.6022e-19*5*1.e-8/1.6726e-27)); % TODO: Entrer la vraie solution analytique a tfin
-    error(i) = sqrt((xend-x_th)^2+(zend-z_th)^2); % erreur sur la position finale
-    error_x(i) = abs(xend-x_th); % Calcul de l'erreur locale en x
-    error_z(i) = abs(zend-z_th); % Calcul de l'erreur locale en z
     
-    erreur_pos_max = max(error_x(i), error_z(i)) % Maximum de l'erreur sur la position
+    error_pos_max(i) = max(abs(xend-x_th), abs(zend-z_th)); % Maximum de l'erreur sur la position
 end
 
 
-
-
-figure
-loglog(dt, error_x, 'k+',"Color", "blue")
-hold on
-loglog(dt, error_z, 'k+', "Color", "magenta")
+lw=1; fs=16;
+figure('Name', [filename ': Convergence numérique de l''erreur sur la position'])
+plot(dt, error_pos_max, 'b+-','linewidth',lw)
+set(gca,'fontsize',fs)
+set(gca,'xscale','log')
+set(gca,'yscale','log')
 xlabel('\Delta t')
-ylabel('Erreur locale sur la position (x(b), z(m))')
+ylabel('Convergence de l''erreur de la position')
 grid on
  
  x = x_th %Pour écrire dans la fenêtre (sans ;)
@@ -79,9 +79,7 @@ grid on
 
 
 %Erreur max sur la vitesse
-error = zeros(1,nsimul);
-error_v_x = zeros(1, nsimul);
-error_v_z = zeros(1, nsimul);
+error_vit_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
@@ -89,24 +87,46 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     v_zend = data(end,5); % Extraire le z final
     v_x_th = (-4e5*sin(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
     v_z_th = (4e5*cos(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
-    error(i) = sqrt((v_xend-v_x_th)^2+(v_zend-v_z_th)^2); % erreur sur la position finale
-    error_v_x(i) = abs(v_xend-v_x_th); %Calcul de l'erreur locale en x
-    error_v_z(i) = abs(v_zend-v_z_th); %Calcul de l'erreur locale en z
 
-    erreur_vit_max = max(error_v_x(i), error_v_z(i)) % Maximum de l'erreur sur la position
+    error_vit_max = max(abs(v_xend-v_x_th), abs(v_zend-v_z_th)); % Maximum de l'erreur sur la position
 end
 
 
-figure
-loglog(dt, error_v_x, 'k+',"Color", "blue")
-hold on
-loglog(dt, error_v_z, 'k+', "Color", "magenta")
+figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
+plot(dt, error_vit_max, 'b+-', 'linewidth',lw)
+set(gca,'fontsize',fs)
+set(gca,'xscale','log')
+set(gca,'yscale','log')
 xlabel('\Delta t')
-ylabel('Erreur locale de la vitesse (v_x(b), v_z(m))')
+ylabel('Convergence de l''erreur sur la vitesse')
 grid on
 
 v_x = v_x_th
 v_z = v_z_th
+
+%Erreur sur l'Energie mécanique 
+
+delta_E_mec = zeros(1, nsimul);
+w_c_dt = zeros(1,nsimul) 
+for i = 1:nsimul % Parcours des resultats de toutes les simulations
+    data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
+    dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
+    E_mec_t = data(end,6); % Extraire E_mec(t)
+    E_mec_0 = (1.0/2.0)*1.62726e-27*4e5*4e5;
+    delta_E_mec(i) = E_mec_t - E_mec_0; % erreur sur la position finale
+    w_c_dt(i) = (1.6022e-19 *5 )/1.62726e-27 * dt(i)%Pour l'intégrateur BB
+end
+
+figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
+plot(dt, delta_E_mec, 'b+-', 'linewidth',lw)
+%hold on  -> Pour Boris Buneman
+%plot(dt, w_c_dt, 'r+-', 'linewidth', lw)
+set(gca,'fontsize',fs)
+set(gca,'xscale','log')
+set(gca,'yscale','log')
+xlabel('\Delta t')
+ylabel('\Delta E_{mec}')
+grid on
 
 
 %-----------------Fin de l'exo
