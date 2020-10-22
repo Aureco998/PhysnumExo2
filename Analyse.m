@@ -105,5 +105,20 @@ grid on
 %-------------------------Partie a-------------------------------------
 
 %-----------------------------ii)---------------------------------------
-
+% Non-conservation de l'énergie mécanique 
+E_mec_i = (1.0/2.0 * 1.62726e-27*4e5*4e5);
+E_mec_t = [7.75697638819292e-007,
+            7.76455503400251e-007,
+            7.76990057899759e-007,
+            7.7736157050707e-007,
+            7.77614331728026e-007,
+            7.77780741836893e-007 ]
+delta_E_mec = E_mec_t-E_mec_0;
+plot(nsteps_num, abs(delta_E_mec,'k+-', "Color", "blue")
+set(gca,'fontsize',fs)
+set(gca,'xscale','log')
+set(gca,'yscale','log')
+xlabel('N_{steps}')
+ylabel('delta E_mec(t)')
+grid on
 
