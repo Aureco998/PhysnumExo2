@@ -57,9 +57,12 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     x_th = ((1.6726e-27/(1.6022e-19*5))*4e5*cos(1.6022e-19*5*1.e-8/1.6726e-27)-(1.6726e-27*4e5/(1.6022e-19*5))); % TODO: Entrer la vraie solution analytique a tfin
     z_th = ((4e5*1.6726e-27/(1.6022e-19*5))*sin(1.6022e-19*5*1.e-8/1.6726e-27)); % TODO: Entrer la vraie solution analytique a tfin
     error(i) = sqrt((xend-x_th)^2+(zend-z_th)^2); % erreur sur la position finale
-    error_x(i) = sqrt((xend-x_th)^2);
-    error_z(i) = sqrt((zend-z_th)^2);
+    error_x(i) = abs(xend-x_th); % Calcul de l'erreur locale en x
+    error_z(i) = abs(zend-z_th); % Calcul de l'erreur locale en z
+    
+    erreur_pos_max = max(error_x(i), error_z(i)) % Maximum de l'erreur sur la position
 end
+
 
 
 
@@ -68,7 +71,7 @@ loglog(dt, error_x, 'k+',"Color", "blue")
 hold on
 loglog(dt, error_z, 'k+', "Color", "magenta")
 xlabel('\Delta t')
-ylabel('Maximum de l''erreur sur la position')
+ylabel('Erreur locale sur la position (x(b), z(m))')
 grid on
  
  x = x_th %Pour écrire dans la fenêtre (sans ;)
@@ -77,6 +80,8 @@ grid on
 
 %Erreur max sur la vitesse
 error = zeros(1,nsimul);
+error_v_x = zeros(1, nsimul);
+error_v_z = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
@@ -85,12 +90,19 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     v_x_th = (-4e5*sin(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
     v_z_th = (4e5*cos(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
     error(i) = sqrt((v_xend-v_x_th)^2+(v_zend-v_z_th)^2); % erreur sur la position finale
+    error_v_x(i) = abs(v_xend-v_x_th); %Calcul de l'erreur locale en x
+    error_v_z(i) = abs(v_zend-v_z_th); %Calcul de l'erreur locale en z
+
+    erreur_vit_max = max(error_v_x(i), error_v_z(i)) % Maximum de l'erreur sur la position
 end
 
+
 figure
-loglog(dt, error, 'k+')
+loglog(dt, error_v_x, 'k+',"Color", "blue")
+hold on
+loglog(dt, error_v_z, 'k+', "Color", "magenta")
 xlabel('\Delta t')
-ylabel('Maximum de l''erreur sur la vitesse')
+ylabel('Erreur locale de la vitesse (v_x(b), v_z(m))')
 grid on
 
 v_x = v_x_th
