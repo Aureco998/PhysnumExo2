@@ -50,15 +50,13 @@ end
 %NE PAS MODIFIER 
 
 %Erreur max sur la position
-
+[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 0.0, 1.e-8);
 error_pos_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
     xend = data(end,2); % Extraire le x final
     zend = data(end,3); % Extraire le z final
-    x_th = ((1.6726e-27/(1.6022e-19*5))*4e5*cos(1.6022e-19*5*1.e-8/1.6726e-27)-(1.6726e-27*4e5/(1.6022e-19*5))); % TODO: Entrer la vraie solution analytique a tfin
-    z_th = ((4e5*1.6726e-27/(1.6022e-19*5))*sin(1.6022e-19*5*1.e-8/1.6726e-27)); % TODO: Entrer la vraie solution analytique a tfin
     
     error_pos_max(i) = max(abs(xend-x_th), abs(zend-z_th)); % Maximum de l'erreur sur la position
 end
@@ -71,7 +69,7 @@ set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
 xlabel('\Delta t')
-ylabel('Convergence de l''erreur de la position')
+ylabel('Convergence de l''erreur sur position')
 grid on
  
  x = x_th %Pour écrire dans la fenêtre (sans ;)
@@ -79,48 +77,47 @@ grid on
 
 
 %Erreur max sur la vitesse
+[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 0.0, 1.e-8);
 error_vit_max = zeros(1, nsimul);
+
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
-    v_xend = data(end,4); % Extraire le x final
-    v_zend = data(end,5); % Extraire le z final
-    v_x_th = (-4e5*sin(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
-    v_z_th = (4e5*cos(1.6022e-19*5*1.e-8/1.62726e-27)); % TODO: Entrer la vraie solution analytique a tfin
-
-    error_vit_max = max(abs(v_xend-v_x_th), abs(v_zend-v_z_th)); % Maximum de l'erreur sur la position
+    v_xend = data(end,4); % Extraire le v_x final
+    v_zend = data(end,5); % Extraire le v_z final
+    
+    error_vit_max(i) = max(abs(v_xend- v_xth), abs(v_zend- v_zth)); % Maximum de l'erreur sur la position
+    
 end
 
-
+lw=1; fs=16; ms=6;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
-plot(dt, error_vit_max, 'b+-', 'linewidth',lw)
+plot(dt, error_vit_max, 'b+-','linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
 xlabel('\Delta t')
-ylabel('Convergence de l''erreur sur la vitesse')
+ylabel('Convergence de l''erreur sur v')
 grid on
 
-v_x = v_x_th
-v_z = v_z_th
+v_x = v_xth
+v_z = v_zth
 
 %Erreur sur l'Energie mécanique 
 
+
 delta_E_mec = zeros(1, nsimul);
-w_c_dt = zeros(1,nsimul) 
+[n] = n_steps_limit(1.6726e-27,1.6022e-19, 5.0, 1.e-8) %Valeur limite de n_steps pour laquelle le schéma d'EC est stable
+[E_mec_0] = E_mec_i(1.6726e-27, 4e5)
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
     E_mec_t = data(end,6); % Extraire E_mec(t)
-    E_mec_0 = (1.0/2.0)*1.62726e-27*4e5*4e5;
-    delta_E_mec(i) = E_mec_t - E_mec_0; % erreur sur la position finale
-    w_c_dt(i) = (1.6022e-19 *5 )/1.62726e-27 * dt(i)%Pour l'intégrateur BB
+    delta_E_mec(i) = E_mec_t - E_mec_0; % Delta E_mec
 end
 
 figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
-plot(dt, delta_E_mec, 'b+-', 'linewidth',lw)
-%hold on  -> Pour Boris Buneman
-%plot(dt, w_c_dt, 'r+-', 'linewidth', lw)
+plot(dt,delta_E_mec, 'b+-', 'linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
@@ -128,7 +125,54 @@ xlabel('\Delta t')
 ylabel('\Delta E_{mec}')
 grid on
 
+%Fonction qui calcule la position théorique
+function [x,z] = sol_anal_pos(m, q, v_0, B_0, E_0, t_fin)
+    A = q.*B_0./m;
+    
+    %v_th selon x
+    C1 = m.* v_0./(q.*B_0);
+    C2 = m*E_0 ./ (q*B_0.*B_0);
+    
+     x = C1.*cos(A.*t_fin)+ C2.*A.*sin(A.*t_fin) - (E_0.*t_fin./B_0) - (v_0./A);
+   
+     %v_th selon z 
+     C3 = -E_0./(B_0 *A);
+     C4 = v_0./A;
+     
+     z =  C3 .*cos(A.*t_fin)+ C4.*sin(A.*t_fin) + (E_0./(B_0.*A));
+   
 
-%-----------------Fin de l'exo
+end
 
+
+%Fonction qui calcule la vitesse v_th
+function [v_x,v_z] = sol_anal_v(m, q, v_0, B_0, E_0, t_fin)
+    A = q.*B_0./m;
+    
+    %v_th selon x
+    C1 = m.* v_0./(q.*B_0);
+    C2 = m*E_0 ./ (q*B_0.*B_0);
+    
+     v_x = -C1.*A.*sin(A.*t_fin)+ C2.*A.*cos(A.*t_fin) - (E_0./B_0);
+   
+     %v_th selon z 
+     C3 = -E_0./(B_0 *A);
+     C4 = v_0./A;
+     
+     v_z = - A .* C3 .*sin(A.*t_fin)+ C4.*A.*cos(A.*t_fin);
+   
+
+end
+
+%Fonction qui calcule le nsteps limite pour Euler Cromer
+function [n] = n_steps_limit(m, q, B_0, t_fin) 
+   w = q.*B_0./m;
+   n = w.*t_fin./2.0;
+
+end
+
+%Fonction qui calcule l'E_mec initiale
+function [E_mec_0] = E_mec_i(m, v_0) 
+  E_mec_0 = 1.0./2.0 *m*v_0*v_0;
+end
 

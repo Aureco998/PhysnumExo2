@@ -89,7 +89,7 @@ figure('Name', [filename ': Emec(t)'])
 plot(t, Emec, '-','linewidth',lw)
 set(gca,'fontsize',fs)
 xlabel('t [s]')
-ylabel('Emec [s]')
+ylabel('Emec [J]')
 grid on
 
 figure('Name', [filename ': M_magn(t)'])
@@ -100,5 +100,17 @@ ylabel('M_magn [A*m^2]')
 grid on
 
 
+%Graph de Delta_E_mec
+
+dt = t(2)-t(1);
+E_mec_0 = data(1:1, 6);
+Delta_E_mec = Emec - E_mec_0;
+figure('Name', [filename ': D_E_mec(t)'])
+
+plot(t, Delta_E_mec, '-','linewidth',lw)
+set(gca,'fontsize',fs)
+xlabel('t [s]')
+ylabel('\Delta E_{mec} [J]')
+grid on
 
 
