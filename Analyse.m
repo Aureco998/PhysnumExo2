@@ -113,4 +113,3 @@ xlabel('t [s]')
 ylabel('\Delta E_{mec} [J]')
 grid on
 
-

@@ -240,9 +240,12 @@ public:
 	
    //Définition de y_n+1
 	valarray<double> y_n1(y_n);
-	
 		do{
 			
+			//Mise à jour des valeurs
+			x = {y_n1[0],y_n1[1]};
+			v = {y_n1[2], y_n1[3]};
+				
 			//Mise à jour de l'accélération
 			a = acceleration(a);
 			
@@ -252,16 +255,14 @@ public:
 			//Mise à jour des variables
 			y_n1 = (y_n + f_y_n1*dt);
 			
-			 //Définition d^'un vecteur pour l'erreur
+			 //Définition d'un vecteur pour l'erreur
 			valarray<double> vecterror(0.0, 4);
 			vecterror = (y_n1 - y_n - f_y_n1*dt);
 			
 			error = norm2(vecterror); //mise à jour de l'erreur 
 			iteration += 1; //Implementation de l'iteration
 			
-			//~ //Stockage des valeurs pour la prochaine itération
-			//~ xold = x; 
-			//~ vold = v;
+			
 			
 		}while((iteration < maxit) and (error > tol));
 		

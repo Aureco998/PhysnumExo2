@@ -25,7 +25,7 @@
 % Choix du bon package en fonction de la compilation
 % ----------------------------------------------------------------------------------------------------------------
 
-\usepackage{babel} %indique qu'on veut travailler en francais, en r�glant les accents, les espaces ins�cables, etc. automatiquement
+\usepackage[francais]{babel} %indique qu'on veut travailler en francais, en r�glant les accents, les espaces ins�cables, etc. automatiquement
 \usepackage{iftex}
 
 \ifPDFTeX
@@ -122,6 +122,8 @@
 			{\bf F_p  + F_L} = m \bf{a}
 		\end{equation}
 		
+		Avec ${\bf F_p}$, la force de pesanteur et ${\bf F_L}$, la force de Lorentz.
+		
 		La force de pesanteur est n\'egligeable pour une particule \'el\'ementaire. Il ne reste donc que la force de Lorentz qui est donn\'ee par : $\vec{F} = q(\vec{E}+\vec{v} \times \vec{B})$.
 		
 		Les projections sur les axes donnent:
@@ -156,7 +158,7 @@
 		Ainsi, l'\'equation suivante est obtenue :
 	
 			\begin{equation}
-				E_{mec} = \frac{1}{2}m(v_x^2+v_z^2) + qE_0(z-z_o)
+				E_{mec} = \frac{1}{2}m(v_x^2+v_z^2) + qE_0(z_0 - z)
 			\end{equation}
 		
 		Pour montrer que cette \'energie est conserv\'ee, il faut en calculer la d\'eriv\'ee:
@@ -219,7 +221,7 @@
 			\left \{
 			\begin{array}{r c l}
 				x(t) & = & \frac{qB_0v_0}{m} \cos(\frac{m}{qB_0}t) + \frac{E_0m}{qB_0^2} \sin(\frac{qB_0}{m}t) -\frac{E_0}{B_0}t - \frac{mv_0}{qB_0} \\
-				v_x(t) & = & - \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t) -\frac{E_0}{B_0} \\
+				v_x(t) & = & - v_0 \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t) -\frac{E_0}{B_0} \\
 				z(t) & = & -\frac{mE_0}{qB_0^2} \cos(\frac{qB_0}{m}t) + \frac{mv_0}{qB_0} \sin(\frac{qB_0}{m}t) + \frac{mE_0}{qB_0^2}\\
 				v_z(t) & = & \frac{E_0}{B_0} \sin(\frac{qB_0}{m}t) + v_0\cos(\frac{qB_0}{m}t)
 			\end{array}
@@ -231,6 +233,74 @@
 
 \section{Simulations et Analyses}
 
+	\subsection{Cas sans champ \'electrique mais avec un champ magn\'etque}
+		Dans cette partie, les simulations se font avec les valeurs suivantes :
+		
+		L'intensit\'e du champ \'electrique $E_0=0$,
+		
+		l'intensit\'e du champ magn\'etique $B_0=5$T,
+		
+		les conditions initiales  $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\vec{e_z}$,
+		
+		la vitesse initiale $v_0 = 4 \cdot 10^5$ m/s et 
+	
+		le temps final $t_{fin} = 10^{-8}$ s, le temps n\'ecessaire pour que le proton effectue 5 p\'eriodes de rotation.
+		
+		
+		\subsubsection{Convergence num\'erique de l'erreur sur la position et la vitesse}
+		
+		\begin{figure}[h]
+			\begin{minipage}[c]{.46\linewidth}
+				\centering
+				\includegraphics[scale = 0.6]{Convergence_erreur_position_tous_integrateurs.png}
+				\caption{\em\label{Fig:Convergence erreur position} Convergence de l'erreur sur la position en $\delta t$}
+			\end{minipage}
+			\hfill%
+			\begin{minipage}[c]{.46\linewidth}
+				\centering
+				\includegraphics[scale = 0.6]{Convergence_erreur_vitesse_tous_integrateurs.png}
+				\caption{\em\label{Fig: Convergence erreur vitesse} Convergence de l'erreur sur la vitesse en $\delta t$}
+			\end{minipage}
+		\end{figure}
+
+		Dans les figures \ref{Fig:Convergence erreur position} et \ref{Fig: Convergence erreur vitesse}, des simulations de l'erreur maximale locale sur la position et la vitesse ont \'et\'e faites. C'est donc l'erreur num\'erique qui est observ\'ee.
+		On voit que les sch\'emas d'Euler explicte et Euler implicite donnent les m\^emes courbes, ce qui ne devrait pas être le cas.
+		Il est visible que l'ordre de convergence de toutes les courbes, que ce soit pour la position ou la vitesse, sont du premier ordre, car ils forment une droite en se rapprochant des petits $\delta t$.
+
+		\subsubsection{Non-conservation de l'Energie m\'ecanique }
+	\begin{figure}[h]
+		\begin{minipage}[c]{.46\linewidth}
+			\centering
+			\includegraphics[scale = 0.6]{D_E_mec_E.png}
+			\caption{\em\label{Fig:Emec E} Variation de l'Energie m\'ecanique selon Euler explicite en $\delta t$}
+		\end{minipage}
+		\hfill%
+		\begin{minipage}[c]{.46\linewidth}
+			\centering
+			\includegraphics[scale = 0.6]{D_E_mec_RK2.png}
+			\caption{\em\label{Fig: Emec RK2} Variation de l'Energie m\'ecanique selon Runge-Kutta 2 en $\delta t$}
+		\end{minipage}
+	\end{figure}
+
+		Les figures \ref{Fig:Emec E} et \ref{Fig: Emec RK2} montrent que l'int\'egrateur d'Euler explicite et celui de Runge-Kutta d'ordre 2 sont instables car, pour des petits pas de temps, on voit clairement que $\delta E_{mec}$ croît exponentiellement. 
+		
+				\begin{figure}[h]
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{D_E_mec_EC_n=1_2_3.png}
+					\caption{\em\label{Fig:Emec EC} Variation de l'Energie m\'ecanique selon Euler-Cromer en $\delta t$ pour des petits nombres de pas }
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{D_E_mec_Ec_n=10_20_50_100.png}
+					\caption{\em\label{Fig: Emec ECC} Variation de l'Energie m\'ecanique selon Euler-Cromer en $\delta t$ pour des plus grands nombres de pas}
+				\end{minipage}
+			\end{figure}
+		
+		Dans la figure \ref{Fig:Emec EC}, il est observable qu'avec un pas de temps de 3 l'\'energie est conserv\'ee, alors que si il est plus petit que 3, l'\'en\'ergie m\'ecanique n'est pas conserv\'ee. Cela est d\^u au fait qu'Euler-Cromer n'est stable que si $w_c \delta t <2$. Avec $w_c = \frac{qB_0}{m}$, la vitesse de rotation du proton. Ce qui donne le nombre de pas limite $n > 2.3948$, ce qui corespond à la figure \ref{Fig:Emec EC}.
+		Dans le graphique \ref{Fig: Emec ECC}, on voit que plus le pas de temps est grand, plus l'\'energie est bien conserv\'ee, la courbe oscille autour de 0 et montre donc que c'est un sch\'ema stable quand le pas de temps minimum est respect\'e.
+		
 	
 
 

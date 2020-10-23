@@ -1,8 +1,11 @@
-\babel@toc {nil}{}
+\babel@toc {french}{}
 \contentsline {section}{\numberline {1}Introduction}{1}{section.1}
 \contentsline {section}{\numberline {2}Calculs analytiques}{2}{section.2}
 \contentsline {subsection}{\numberline {2.1}\'Equations du mouvement}{2}{subsection.2.1}
 \contentsline {subsection}{\numberline {2.2}\'Energie m\'ecanique et sa conservation}{2}{subsection.2.2}
 \contentsline {subsection}{\numberline {2.3}Solution analytique}{3}{subsection.2.3}
 \contentsline {section}{\numberline {3}Simulations et Analyses}{3}{section.3}
-\contentsline {section}{\numberline {4}Conclusions}{3}{section.4}
+\contentsline {subsection}{\numberline {3.1}Cas sans champ \'electrique mais avec un champ magn\'etque}{3}{subsection.3.1}
+\contentsline {subsubsection}{\numberline {3.1.1}Convergence num\'erique de l'erreur sur la position et la vitesse}{4}{subsubsection.3.1.1}
+\contentsline {subsubsection}{\numberline {3.1.2}Non-conservation de l'Energie m\'ecanique }{4}{subsubsection.3.1.2}
+\contentsline {section}{\numberline {4}Conclusions}{5}{section.4}
