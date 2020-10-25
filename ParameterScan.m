@@ -50,7 +50,7 @@ end
 %NE PAS MODIFIER 
 
 %Erreur max sur la position
-[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 10e5, 1.e-8);
+[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 1e5, 1.e-8);
 error_pos_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
@@ -59,7 +59,7 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     zend = data(end,3); % Extraire le z final
     %x_th = 1.4768e13;
     %z_th = -1.9101e14;
-    error_pos_max(i) = max(sqrt((xend-x_th).^2+(zend-z_th).^2)); % Maximum de l'erreur sur la position
+    error_pos_max(i) = max(abs(xend-x_th), abs(zend-z_th)); % Maximum de l'erreur sur la position -> CORRECT
 end
 
 
@@ -79,7 +79,7 @@ grid on
  
 
 %Erreur max sur la vitesse
-[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 10e5, 1.e-8);
+[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 1e5, 1.e-8);
 error_vit_max = zeros(1, nsimul);
 
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -88,7 +88,7 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     v_xend = data(end,4); % Extraire le v_x final
     v_zend = data(end,5); % Extraire le v_z final
     
-    error_vit_max(i) = abs(v_xend- v_xth); % Maximum de l'erreur sur la position
+    error_vit_max(i) = max(abs(v_xend-v_xth), abs(v_zend-v_zth)); % Maximum de l'erreur sur la position -> CORRECT
     
 end
 
@@ -139,8 +139,9 @@ function [x,z] = sol_anal_pos(m, q, v_0, B_0, E_0, t_fin)
     
     %x_th selon x
     A = (q*B_0)./m;
-    C1 = v_0.*A;
+    C1 = v_0./A;
     C2 = E_0/(A.*B_0);
+    
     
      x = C1.*cos(A.*t_fin)+ C2.*sin(t_fin*A) - (E_0.*t_fin./B_0) - (v_0./A);
    

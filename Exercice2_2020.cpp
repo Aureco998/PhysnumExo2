@@ -86,7 +86,7 @@ private:
     // Ecriture tous les [sampling] pas de temps, sauf si write est vrai
     if((!write && last>=sampling) || (write && last!=1))
     {
-      double mechanicalEnergy = 1.0/2.0 *mass*(v[0]*v[0] + v[1]*v[1]) + charge* E0 *(x0[1]-x[1]); // TODO calculer l'energie mecanique 
+      double mechanicalEnergy = (1.0/2.0 *mass*(v[0]*v[0] + v[1]*v[1]) + (charge* E0 *(x0[1]-x[1]))); // TODO calculer l'energie mecanique 
       double magneticMoment   = (mass * (v[0]*v[0] + v[1]*v[1]) / (2*B0)); // TODO calculer le moment magnetique 
       *outputFile << t << " " << x[0] << " " << x[1] << " " \
       << v[0] << " " << v[1] << " " << mechanicalEnergy << " " \
@@ -264,7 +264,7 @@ public:
 			
 			
 			
-		}while((iteration < maxit) and (error < tol));
+		}while((iteration < maxit) and (error > tol));
 		
 		x = valarray<double>({y_n1[0], y_n1[1]});
 		v = valarray<double>({y_n1[2], y_n1[3]});
