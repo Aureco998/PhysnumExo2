@@ -50,21 +50,22 @@ end
 %NE PAS MODIFIER 
 
 %Erreur max sur la position
-[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 0.0, 1.e-8);
+[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 10e5, 1.e-8);
 error_pos_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
     dt(i) = data(2,1)-data(1,1); % Delta t = t_2-t_1
     xend = data(end,2); % Extraire le x final
     zend = data(end,3); % Extraire le z final
-    
-    error_pos_max(i) = max(abs(xend-x_th), abs(zend-z_th)); % Maximum de l'erreur sur la position
+    %x_th = 1.4768e13;
+    %z_th = -1.9101e14;
+    error_pos_max(i) = max(sqrt((xend-x_th).^2+(zend-z_th).^2)); % Maximum de l'erreur sur la position
 end
 
 
 lw=1; fs=16;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la position'])
-plot(dt, error_pos_max, 'b+-','linewidth',lw)
+plot(dt, error_pos_max, '+','linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
@@ -72,12 +73,13 @@ xlabel('\Delta t')
 ylabel('Convergence de l''erreur sur position')
 grid on
  
- x = x_th %Pour écrire dans la fenêtre (sans ;)
- z = z_th
+ %x = x_th %Pour écrire dans la fenêtre (sans ;)
+ %z = z_th
 
+ 
 
 %Erreur max sur la vitesse
-[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 0.0, 1.e-8);
+[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 10e5, 1.e-8);
 error_vit_max = zeros(1, nsimul);
 
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -86,13 +88,13 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     v_xend = data(end,4); % Extraire le v_x final
     v_zend = data(end,5); % Extraire le v_z final
     
-    error_vit_max(i) = max(abs(v_xend- v_xth), abs(v_zend- v_zth)); % Maximum de l'erreur sur la position
+    error_vit_max(i) = abs(v_xend- v_xth); % Maximum de l'erreur sur la position
     
 end
 
 lw=1; fs=16; ms=6;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
-plot(dt, error_vit_max, 'b+-','linewidth',lw)
+plot(dt, error_vit_max, '+','linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
@@ -100,8 +102,8 @@ xlabel('\Delta t')
 ylabel('Convergence de l''erreur sur v')
 grid on
 
-v_x = v_xth
-v_z = v_zth
+%v_x = v_xth
+%v_z = v_zth
 
 %Erreur sur l'Energie mécanique 
 
@@ -116,8 +118,8 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     delta_E_mec(i) = E_mec_t - E_mec_0; % Delta E_mec
 end
 
-figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
-plot(dt,delta_E_mec, 'b+-', 'linewidth',lw)
+figure('Name', [filename ': Convergence numérique de l''erreur sur l''énergie mécanique'])
+plot(dt,delta_E_mec, '+', 'linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
@@ -125,21 +127,26 @@ xlabel('\Delta t')
 ylabel('\Delta E_{mec}')
 grid on
 
+
+the = x_th
+worst = z_th
+idea = v_xth
+ever = v_zth
+
 %Fonction qui calcule la position théorique
 function [x,z] = sol_anal_pos(m, q, v_0, B_0, E_0, t_fin)
-    A = q.*B_0./m;
-    
-    %v_th selon x
-    C1 = m.* v_0./(q.*B_0);
-    C2 = m*E_0 ./ (q*B_0.*B_0);
-    
-     x = C1.*cos(A.*t_fin)+ C2.*A.*sin(A.*t_fin) - (E_0.*t_fin./B_0) - (v_0./A);
    
-     %v_th selon z 
-     C3 = -E_0./(B_0 *A);
-     C4 = v_0./A;
+    
+    %x_th selon x
+    A = (q*B_0)./m;
+    C1 = v_0.*A;
+    C2 = E_0/(A.*B_0);
+    
+     x = C1.*cos(A.*t_fin)+ C2.*sin(t_fin*A) - (E_0.*t_fin./B_0) - (v_0./A);
+   
+     %z_th selon z
      
-     z =  C3 .*cos(A.*t_fin)+ C4.*sin(A.*t_fin) + (E_0./(B_0.*A));
+     z =  -C2.*cos(t_fin*A)+ C1.*sin(t_fin*A) + (E_0/(A.*B_0));
    
 
 end
@@ -147,19 +154,13 @@ end
 
 %Fonction qui calcule la vitesse v_th
 function [v_x,v_z] = sol_anal_v(m, q, v_0, B_0, E_0, t_fin)
-    A = q.*B_0./m;
-    
     %v_th selon x
-    C1 = m.* v_0./(q.*B_0);
-    C2 = m*E_0 ./ (q*B_0.*B_0);
-    
-     v_x = -C1.*A.*sin(A.*t_fin)+ C2.*A.*cos(A.*t_fin) - (E_0./B_0);
+    A = (q.*B_0)./m;
+     v_x = -v_0.*sin(A*t_fin) + (E_0/B_0).*cos(A*t_fin) - (E_0/B_0);
    
      %v_th selon z 
-     C3 = -E_0./(B_0 *A);
-     C4 = v_0./A;
      
-     v_z = - A .* C3 .*sin(A.*t_fin)+ C4.*A.*cos(A.*t_fin);
+     v_z = (E_0/B_0).*sin(A*t_fin) + v_0.*cos(A*t_fin);
    
 
 end
