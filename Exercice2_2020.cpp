@@ -264,7 +264,7 @@ public:
 			
 			
 			
-		}while((iteration < maxit) and (error > tol));
+		}while((iteration < maxit) and (error < tol));
 		
 		x = valarray<double>({y_n1[0], y_n1[1]});
 		v = valarray<double>({y_n1[2], y_n1[3]});
