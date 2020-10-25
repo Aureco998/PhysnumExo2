@@ -302,7 +302,26 @@
 		Dans le graphique \ref{Fig: Emec ECC}, on voit que plus le pas de temps est grand, plus l'\'energie est bien conserv\'ee, la courbe oscille autour de 0 et montre donc que c'est un sch\'ema stable quand le pas de temps minimum est respect\'e.
 		
 	
-
+\subsection{Cas avec un champ \'electrique et un champ magn\'etique : d\'erive $\Vec{E}\times\Vec{B}$}
+Dans cette section nous regardons le cas o\`u $E_0 \ne 0$, et comme dans l'exemple d'avant, $B_0 \ne 0$. Les sch\'emas qui seront utilis\'ees sont le Runge-Kutta d'ordre 2 et le Boris-Buneman.
+	\subsubsection{Etude de convergence en $\Delta t$}
+	Pour notre étude nous trouvons les sch\'emas de convergence selon $\Delta t$ sur la figure \ref{Fig: Conv Pos}, o\`u les droites se superposent pour Boris-Buneman et Runge-Kutta d'ordre 2.
+	Pour le cas de la vitesse, comme on peut voir sur la figure \ref{Fig: Conv Vit}, l'erreure converge pour le sch\'ema de Runge-Kutta d'ordre 2, comme pour Boris-Buneman, avec des valeurs legerement differentes, mais la meme pente.
+	
+	
+	\begin{figure}[h]
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{conv_pos_RK_BB.png}
+					\caption{\em\label{Fig: Conv Pos} Etude de la convergence de l'erreure sur la position selon $\Delta t$}
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{conv_vit_RK_BB.png}
+					\caption{\em\label{Fig: Conv Vit} Etude de la convergence de l'erreure sur la vitesse selon $\Delta t$}
+				\end{minipage}
+			\end{figure}
 
 \section{Conclusions}
 
