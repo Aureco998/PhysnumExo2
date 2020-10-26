@@ -92,6 +92,8 @@
 
 \section{Introduction} %------------------------------------------
 
+	Dans le domaine de la physique, il est possible de d\'ecrire de nombreux phénomènes du monde. Pour cela, il est souvent n\'ecessaire de recourir au calcul num\'erique pour r\'esoudre des \'equations qui ne peuvent pas \^etre calcul\'ees analytiquement. Il existe plusieurs m\'ethodes pour les r\'esoudre, dont les int\'egrateurs. Il faut cependant savoir les choisir en fonction du probl\`emes trait\'es et pour cela, il faut les conna\^itre.
+
 	Dans cet exercice, il est question d'une particule charg\'ee dans un champ \'electromagn\'etique subissant une force de Lorentz. 
 	
 	Le but est d'en \'etudier la trajectoire afin de pouvoir analyser les propri\'et\'es de stabilit\'e et de convergence des cinq sch\'emas suivants : 
@@ -252,7 +254,7 @@
 		\begin{figure}[h]
 			\begin{minipage}[c]{.46\linewidth}
 				\centering
-				\includegraphics[scale = 0.6]{Convergence_erreur_position_tous_integrateurs.png}
+				\includegraphics[scale=0.6]{Convergence_erreur_position.png}
 				\caption{\em\label{Fig:Convergence erreur position} Convergence de l'erreur sur la position en $\delta t$}
 			\end{minipage}
 			\hfill%
@@ -264,7 +266,6 @@
 		\end{figure}
 
 		Dans les figures \ref{Fig:Convergence erreur position} et \ref{Fig: Convergence erreur vitesse}, des simulations de l'erreur maximale locale sur la position et la vitesse ont \'et\'e faites. C'est donc l'erreur num\'erique qui est observ\'ee.
-		On voit que les sch\'emas d'Euler explicte et Euler implicite donnent les m\^emes courbes, ce qui ne devrait pas être le cas.
 		Il est visible que l'ordre de convergence de toutes les courbes, que ce soit pour la position ou la vitesse, sont du premier ordre, car ils forment une droite en se rapprochant des petits $\delta t$.
 
 		\subsubsection{Non-conservation de l'Energie m\'ecanique }
@@ -300,6 +301,23 @@
 		
 		Dans la figure \ref{Fig:Emec EC}, il est observable qu'avec un pas de temps de 3 l'\'energie est conserv\'ee, alors que si il est plus petit que 3, l'\'en\'ergie m\'ecanique n'est pas conserv\'ee. Cela est d\^u au fait qu'Euler-Cromer n'est stable que si $w_c \delta t <2$. Avec $w_c = \frac{qB_0}{m}$, la vitesse de rotation du proton. Ce qui donne le nombre de pas limite $n > 2.3948$, ce qui corespond à la figure \ref{Fig:Emec EC}.
 		Dans le graphique \ref{Fig: Emec ECC}, on voit que plus le pas de temps est grand, plus l'\'energie est bien conserv\'ee, la courbe oscille autour de 0 et montre donc que c'est un sch\'ema stable quand le pas de temps minimum est respect\'e.
+		
+		\begin{figure}[h]
+			\begin{minipage}[c]{.46\linewidth}
+				\centering
+				\includegraphics[scale = 0.6]{D_E_mec_BB.png}
+				\caption{\em\label{Fig:Emec BB} Variation de l'Energie m\'ecanique selon Boris Buneman en $\delta t$ }
+			\end{minipage}
+			\hfill%
+			\begin{minipage}[c]{.46\linewidth}
+				\centering
+				\includegraphics[scale = 0.6]{D_E_mec_EI.png}
+				\caption{\em\label{Fig: Emec EI2} Variation de l'Energie m\'ecanique selon Euler impliciteet Euler explicite  en $\delta t$}
+			\end{minipage}
+		\end{figure}
+	
+	La figure \ref{Fig:Emec BB} montre que l'int\'egrateur de Boris Buneman conserve exactement l'\'energie m\'ecanique pour tous les pas de temps et, par cons\'equent, pour toute valeur de $\Delta t$.
+	Et la figure \ref{Fig: Emec EI2} est faite de afin de pouvoir comparer les deux int\'egrateurs d'Euler. On voit nettement que le sch\'ema implicite est bien plus stable que l'explicite et qu'il dissipe de l'\'energie, ce qui est ce \`a quoi on s'attend (\cite{NdC}, p.34).
 		
 	
 \subsection{Cas avec un champ \'electrique et un champ magn\'etique : d\'erive $\Vec{E}\times\Vec{B}$}

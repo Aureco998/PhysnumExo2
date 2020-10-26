@@ -65,7 +65,7 @@ end
 
 lw=1; fs=16;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la position'])
-plot(dt, error_pos_max, '+','linewidth',lw)
+plot(dt, error_pos_max, 'b+-','linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
@@ -94,7 +94,7 @@ end
 
 lw=1; fs=16; ms=6;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
-plot(dt, error_vit_max, '+','linewidth',lw)
+plot(dt, error_vit_max, 'b+-','linewidth',lw)
 set(gca,'fontsize',fs)
 set(gca,'xscale','log')
 set(gca,'yscale','log')
