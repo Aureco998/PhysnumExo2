@@ -388,28 +388,53 @@ v_x(t) = - v_0\sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0}\cos(\frac{qB_0}{m}t)
 
 
 \subsection{Cas d'un champ magn\'etique non uniforme : d\'erive $\Vec{B}\times\nabla B$}
-Dans cette section nous consid\'erons un champ magn\'etique d'intensit\'e variable $\Vec{B} = B(x)\hat{y}$, o\`u $B(x) = B_0(1 + \kappa x)$, $\kappa = 100$m$^{-1}$, $B_0 = 5$T, $E = 0$, $v_{x_0} = 0$, $v_{z_0} = 4\cdot10^5$m.s$^{-1}$, $x_0 = \frac{mv_{z_0}}{qB_0}$, $z_0 = 0$ et $t_{fin} = 6.5593\cdot10^{-7}$s. Les sch\'emas utilis\'ees sont Runge-Kutta d'ordre 2 et Boris-Buneman.
+Dans cette section nous consid\'erons un champ magn\'etique d'intensit\'e variable $\Vec{B} = B(x)\hat{y}$, o\`u $B(x) = B_0(1 + \kappa x)$, $\kappa = 100$m$^{-1}$, $B_0 = 5$T, $E = 0$, $v_{x_0} = 0$, $v_{z_0} = 4\cdot10^5$m.s$^{-1}$, $x_0 = \frac{mv_{z_0}}{qB_0}$, $z_0 = 0$ et $t_{fin} = 6.5593\cdot10^{-7}$s. Le sch\'ema utilis\'e est Boris-Buneman.
 
 \subsubsection{Cas d'un proton ($q = e$) et d'un antiproton ($q = -e$)}
-Dans les cas de proton et antiproton les trajectoires sont des cyclo\"\i des, et on peut observer que lorsque $n_{steps}$ devient tr\`es grand, leurs orbites deviennent de plus en plus des colonnes droites. On peut voir ceci sur les figures \ref{Fig: Prot Traj} et \ref{Fig: Anti Traj}.
+Dans les cas de proton et antiproton les trajectoires sont des cyclo\"\i des, et on peut observer que lorsque $n_{steps}$ devient tr\`es grand, leurs orbites deviennent de plus en plus des colonnes droites. On peut voir leurs limites sur les figures \ref{Fig: Prot Traj} et \ref{Fig: Anti Traj}.
 \begin{figure}[h]
 				\begin{minipage}[c]{.46\linewidth}
 					\centering
 					\includegraphics[scale = 0.6]{final_traj_prot.png}
-					\caption{\em\label{Fig: Prot Traj} Trajectoire d'un proton avec $n_{steps} = 10^4$.}
+					\caption{\em\label{Fig: Prot Traj} Trajectoire d'un proton.}
 				\end{minipage}
 				\hfill%
 				\begin{minipage}[c]{.46\linewidth}
 					\centering
 					\includegraphics[scale = 0.6]{final_traj_antiprot.png}
-					\caption{\em\label{Fig: Anti Traj} Trajectoire d'un antiproton avec $n_{steps} = 10^5$.}
+					\caption{\em\label{Fig: Anti Traj} Trajectoire d'un antiproton.}
 				\end{minipage}
 			\end{figure}
-
-On peut aussi observer avec un nombre different de $n_{steps}$ que la trajectoire du proton s'aprroche dans un sens horaire, alors que dans le cas de l'antiproton s'approche dans un sens antihoraire.
-
+On voit que la colonne du proton est orient\'e vers le bas, alors que celui de l'antiproton est orient\'e vers le haut. La trajectoire est parcourue dans un sens anti-horaire par le proton, et dans un sens horaire par l'antiproton.
 
 \subsubsection{La quantit\'e $\mu = \frac{mv^2}{2B}$}
+La quantit\'e $\mu$ s'appelle le moment magn\'etique d'une particule, dans notre cas soit du proton, soit de l'antiproton. Il caract\'erise l'intensit\'e de la source magn\'etique. L'\'enconc\'e \cite{Notes} nous dit que $B(x) = B_0(1 + \kappa x) = B_0 + B_0x\kappa$. Il est \'evident que cette fonction d\'epend en entier de la valeur de $x$, et a donc des extremas en fonction des extremas de la fonction $f(x) = x$. Sur les figures suivantes, o\`u les positions des particules et les valeurs des moments magn\'etiques des particules sont repr\'esent\'ees sur un intervalle de temps de $\Delta t = 1\times 10^{-7}$, pour qu'on puisse voir avec plus de pr\'ecision ce que se passe, on voit que $\mu$ est inversement proportionnel \`a la position de la particule.
+
+\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{proton_pos.png}
+					\caption{\em\label{Fig: Pos Prot} Trajectoire d'un proton.}
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{antiproton_pos.png}
+					\caption{\em\label{Fig: Pos Anti} Trajectoire d'un antiproton.}
+				\end{minipage}
+			\end{figure}
+			
+\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{mm_p.png}
+					\caption{\em\label{Fig: mm Prot} Trajectoire d'un proton.}
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{mm_ap.png}
+					\caption{\em\label{Fig: mm Anti} Trajectoire d'un antiproton.}
+				\end{minipage}
+			\end{figure}
 
 
 
