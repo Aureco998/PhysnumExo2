@@ -373,6 +373,17 @@ On n'arrive pratiquement pas \`a diff\'erencier les droites pour les valeurs : $
 \lim_{n_{steps} \rightarrow +\infty} \Delta E(t) = 0 \forall t \in [0;t_{fin}]
 \end{equation}
 
+\subsubsection{Trajectoire de la particule dans un r\'ef\'erentiel en translation uniforme \`a la vitesse $v_E = \Vec{E}\times\Vec{B}/B^2$}
+
+La formule de $v_E$ \'etant donn\'e, on peut calculer sa valeur, qui est donn\'e par : 
+\begin{equation}\label{v_e}
+\Vec{v}_E = \frac{1}{B_0^2}\begin{pmatrix}0 \\ 0 \\ E_0 \end{pmatrix}\times\begin{pmatrix}0 \\ B_0 \\ 0 \end{pmatrix} = -\frac{1}{B_0}\begin{pmatrix}E_0 \\ 0 \\ 0 \end{pmatrix}
+\end{equation}
+
+On peut soustraire la valeur dans l'\'equation de $v_x(t)$ de l'\'equation \ref{sol_an}, ce qui donne :
+\begin{equation}\label{sol v_e}
+v_x(t) = - v_0 \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t)
+\end{equation}
 
 
 
