@@ -77,6 +77,7 @@ private:
   ofstream *outputFile;    // Pointeur vers le fichier de sortie
 
   // TODO calculer l'energie mecanique et le moment magnetique
+  double magneticMoment() {return (mass * (v[0]*v[0] + v[1]*v[1]) / (2*By()));}
   /* Calculer et ecrire les diagnostics dans un fichier
      inputs:
        write: (bool) ecriture de tous les sampling si faux
@@ -87,10 +88,10 @@ private:
     if((!write && last>=sampling) || (write && last!=1))
     {
       double mechanicalEnergy = (1.0/2.0 *mass*(v[0]*v[0] + v[1]*v[1]) + (charge* E0 *(x0[1]-x[1]))); // TODO calculer l'energie mecanique 
-      double magneticMoment   = (mass * (v[0]*v[0] + v[1]*v[1]) / (2*B0)); // TODO calculer le moment magnetique 
+      double magneticMomen = magneticMoment(); // TODO calculer le moment magnetique 
       *outputFile << t << " " << x[0] << " " << x[1] << " " \
       << v[0] << " " << v[1] << " " << mechanicalEnergy << " " \
-      << magneticMoment << endl; // write output on file
+      << magneticMomen << endl; // write output on file
       last = 1;
     }
     else
@@ -142,8 +143,8 @@ protected:
   valarray<double> acceleration(valarray<double>& a) const
   {
     // compute the acceleration
-    a[0] = (-(charge/mass)*B0*v[1]) ; // TODO
-    a[1] = (charge/mass)*(E0 + B0*v[0]); // TODO
+    a[0] = (-(charge/mass)*By()*v[1]) ; // TODO
+    a[1] = (charge/mass)*(E0 + By()*v[0]); // TODO
     return a;
   }
 
@@ -377,7 +378,7 @@ protected:
   // Calcul la rotation des vitesses pour la method de Boris Buneman
   double rotationVitessesBorisBuneman()
   {
-	return (charge*B0/ mass);
+	return (charge*By()/ mass);
   }
 
 public:
