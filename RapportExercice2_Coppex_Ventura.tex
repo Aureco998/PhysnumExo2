@@ -382,7 +382,7 @@ La formule de $v_E$ \'etant donn\'e, on peut calculer sa valeur, qui est donn\'e
 
 On peut soustraire la valeur dans l'\'equation de $v_x(t)$ de l'\'equation \ref{sol_an}, ce qui donne :
 \begin{equation}\label{sol v_e}
-v_x(t) = - v_0 \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t)
+v_x(t) = - v_0\sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0}\cos(\frac{qB_0}{m}t)
 \end{equation}
 
 
@@ -391,8 +391,22 @@ v_x(t) = - v_0 \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t)
 Dans cette section nous consid\'erons un champ magn\'etique d'intensit\'e variable $\Vec{B} = B(x)\hat{y}$, o\`u $B(x) = B_0(1 + \kappa x)$, $\kappa = 100$m$^{-1}$, $B_0 = 5$T, $E = 0$, $v_{x_0} = 0$, $v_{z_0} = 4\cdot10^5$m.s$^{-1}$, $x_0 = \frac{mv_{z_0}}{qB_0}$, $z_0 = 0$ et $t_{fin} = 6.5593\cdot10^{-7}$s. Les sch\'emas utilis\'ees sont Runge-Kutta d'ordre 2 et Boris-Buneman.
 
 \subsubsection{Cas d'un proton ($q = e$) et d'un antiproton ($q = -e$)}
+Dans les cas de proton et antiproton les trajectoires sont des cyclo\:ides, et on peut observer que lorsque $n_{steps}$ devient tr\`es grand, leurs orbites deviennent de plus en plus des colonnes droites. On peut voir ceci sur les figures \ref{Fig: Prot Traj} et \ref{Fig: Anti Traj}.
+\begin{figure}[h]
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{proton_traj.png}
+					\caption{\em\label{Fig: Prot Traj} Trajectoire d'un proton avec $n_{steps} = 10^4$.}
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{antiproton_traj.png}
+					\caption{\em\label{Fig: Anti Traj} Trajectoire d'un antiproton avec $n_{steps} = 10^5$.}
+				\end{minipage}
+			\end{figure}
 
-
+On peut aussi observer avec un nombre different de $n_{steps}$ que la trajectoire du proton s'aprroche dans un sens horaire, alors que dans le cas de l'antiproton s'approche dans un sens antihoraire.
 
 
 \subsubsection{La quantit\'e $\mu = \frac{mv^2}{2B}$}
