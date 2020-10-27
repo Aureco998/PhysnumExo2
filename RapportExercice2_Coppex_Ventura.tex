@@ -265,21 +265,16 @@
 			\end{minipage}
 		\end{figure}
 
-		Dans la figure \ref{Fig:Convergence erreur position} une simulation de l'erreur maximale locale sur la position a \'et\'e faite. C'est donc l'erreur num\'erique qui est observ\'ee. On s'int\'eresse maintenant \`a leur ordre de convergence, ce dernier est d\'efini ici comme \'etant la pente de la courbe form\'ee par l'erreur. Pour mieux les mesurer, des droites de m\^eme pente ont \'et\'e plac\'ees \`a c\^ot\'e des courbes trouv\'ees gr\^ace aux diff\'erents int\'egrateurs.
+		Dans la figure \ref{Fig:Convergence erreur position} une simulation de l'erreur maximale locale sur la position a \'et\'e faite. C'est donc l'erreur num\'erique qui est observ\'ee. On repr\'esente les convergences selon les 5 int\'egrateurs : Euler explicite (E), Euler implicite (EI), Euler-Cromer (EC), Runge-Kutta d'ordre 2 (RK2) et Boris-Buneman (BB). On s'int\'eresse maintenant \`a leur ordre de convergence, ce dernier est d\'efini ici comme \'etant la pente de la courbe form\'ee par l'erreur lorsque $\Delta t$ est petit. Une fonction a \'et\'e cr\'e\'ee dans le fichier Parameterscan pour calculer ces pentes. Les résultats sont les suivants.
 		
-		Euler implicite est clairement d'ordre 0, car sa pente est constante en se rapprochant des petits $\Delta t$.
+		Pour Euler implicite, les ordres de convegence de la position et de la vitesse sont les m\^emes et valent 1. Il en va de m\^eme pour Euler implicite.
 		
-		En ce qui concerne Euler et Euler-Cromer, ils consituent deux droites parall\`eles en se rapprochant des petits $\Delta t$, comme le montre la droite de pente $\frac{1}{2}$ \`a leur c\^ot\'e, leur ordre de convergence est de $\frac{1}{2}$.
+		Euler-Cromer est \'egalement d'ordre 1 pour la position et la vitesse, ce qui se confirme par la figure \ref{Fig:Convergence erreur position} car on voit que les trois droites des premiers int\'egrateurs sont parall\`eles. 
 		
-		Et pour les int\'egrateurs de Boris-Buneman et de Runge-Kutta d'ordre 2, ils forment aussi deux droites parall\`eles lorsque $\Delta t$ est petit et ont la m\^eme pente que la droite \`a c\^ot\'e d'eux. Ils sont donc tous les deux d'ordre 1.
+		Runge-Kutta et Boris-Buneman sont d'ordre 2, ce qui est confirmé par les deux droites parall\`eles sur la figure \ref{Fig: Convergence erreur vitesse}.
 		
-		Dans la seconde figure (\ref{Fig: Convergence erreur vitesse}), c'est l'erreur num\'erique sur la vitesse qui est observ\'ee. Les ordres de convergence des diff\'erents int\'egrateurs sont les suivants.
 		
-		Euler implicite, comme pour la position est \`a nouveau d'ordre nul, puisque que son erreur num\'erique forme une droite constante pour les petits $\Delta t$. 
 		
-		Cette fois encore, Euler et Euler-Cromer forment des droites parall\`eles entre elles de pente $\frac{1}{3}$, l'ordre de convergence des ces deux int\'egrateurs est donc de $\frac{1}{3}$.
-		
-		Et de m\^eme, Boris-Buneman et Runge-Kutta forment deux droites  parall\`eles entre elles de pente $\frac{3}{4}$. Leur ordre de convergence est par cons\'equent $\frac{3}{4}$.
 		
 
 		\subsubsection{Non-conservation de l'Energie m\'ecanique}
@@ -299,7 +294,8 @@
 		\end{minipage}
 	\end{figure}
 
-		Les figures \ref{Fig:Emec E} et \ref{Fig: Emec RK2} montrent que l'int\'egrateur d'Euler explicite et celui de Runge-Kutta d'ordre 2 sont instables car, pour des petits pas de temps, on voit clairement que $\Delta E_{mec}$ croît exponentiellement. 
+		La figure \ref{Fig:Emec E} montre que l'int\'egrateur d'Euler explicite est instable car, pour des petits pas de temps, on voit clairement que $\Delta E_{mec}$ croît exponentiellement. 
+		En ce qui concerne Runge-Kutta, on voit sur la figure \ref{Fig: Emec RK2} que la variation de l'\'energie m\'ecanique croît fortement pour des petits pas de temps, elle est donc \'egalement instable.
 		
 				\begin{figure}[h]
 				\begin{minipage}[c]{.46\linewidth}

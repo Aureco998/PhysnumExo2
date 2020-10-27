@@ -21,7 +21,7 @@ input = 'configuration.in'; % Nom du fichier d'entree de base MODIFIER SELON VOS
 nsimul = 20; % Nombre de simulations a faire
 
 %nsteps = round(logspace(2,4,nsimul)); % Nombre d'iterations entier de 10^2 a 10^4  MODIFIER SELON VOS BESOINS
-nsteps = round(logspace(1,4,nsimul))
+nsteps = round(logspace(2,5,nsimul))
 
 paramstr = 'nsteps'; % Nom du parametre a scanner  MODIFIER SELON VOS BESOINS
 param = nsteps; % Valeurs du parametre a scanner  MODIFIER SELON VOS BESOINS
@@ -50,7 +50,7 @@ end
 %NE PAS MODIFIER 
 
 %Erreur max sur la position
-[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 1e5, 1.e-8);
+[x_th, z_th] = sol_anal_pos(1.6726e-27,1.6022e-19, 4e5, 5.0, 0, 7.e-8);
 error_pos_max = zeros(1, nsimul);
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
     data = load(output{i}); % Chargement du fichier de sortie de la i-ieme simulation
@@ -60,8 +60,11 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     %x_th = 1.4768e13;
     %z_th = -1.9101e14;
     error_pos_max(i) = max(abs(xend-x_th), abs(zend-z_th)); % Maximum de l'erreur sur la position -> CORRECT
+    
 end
-
+%Calcul de la pente de l'erreur sur la position,  on prend les dernières
+%valeurs pour être plus précis
+pente_pos = pente(dt(:, end-5:end), error_pos_max(:, end-5:end))
 
 lw=1; fs=16;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la position'])
@@ -79,7 +82,7 @@ grid on
  
 
 %Erreur max sur la vitesse
-[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 1e5, 1.e-8);
+[v_xth, v_zth] = sol_anal_v(1.6726e-27,1.6022e-19, 4e5, 5.0, 0, 7.e-8);
 error_vit_max = zeros(1, nsimul);
 
 for i = 1:nsimul % Parcours des resultats de toutes les simulations
@@ -91,6 +94,9 @@ for i = 1:nsimul % Parcours des resultats de toutes les simulations
     error_vit_max(i) = max(abs(v_xend-v_xth), abs(v_zend-v_zth)); % Maximum de l'erreur sur la position -> CORRECT
     
 end
+%Calcul de la pente de l'erreur sur la vitesse, on prend les dernières
+%valeurs pour être plus précis
+pente_vit = pente(dt(:,end-5:end), error_vit_max(:,end-5:end))
 
 lw=1; fs=16; ms=6;
 figure('Name', [filename ': Convergence numérique de l''erreur sur la vitesse'])
@@ -176,5 +182,9 @@ end
 %Fonction qui calcule l'E_mec initiale
 function [E_mec_0] = E_mec_i(m, v_0) 
   E_mec_0 = 1.0./2.0 *m*v_0*v_0;
+end
+
+function [pent] = pente(nsteps, error)
+    pent = log( flip(error,2) ./ error) ./ log(flip(nsteps,2) ./ nsteps);
 end
 
