@@ -339,25 +339,43 @@
 		
 	
 \subsection{Cas avec un champ \'electrique et un champ magn\'etique : d\'erive $\Vec{E}\times\Vec{B}$}
-Dans cette section nous regardons le cas o\`u $E_0 \ne 0$, et comme dans l'exemple d'avant, $B_0 \ne 0$. Les sch\'emas qui seront utilis\'ees sont le Runge-Kutta d'ordre 2 et le Boris-Buneman.
-	\subsubsection{Etude de convergence en $\Delta t$}
-	Pour notre étude nous trouvons les sch\'emas de convergence selon $\Delta t$ sur la figure \ref{Fig: Conv Pos}, o\`u les droites se superposent pour Boris-Buneman et Runge-Kutta d'ordre 2.
-	Pour le cas de la vitesse, comme on peut voir sur la figure \ref{Fig: Conv Vit}, l'erreure converge pour le sch\'ema de Runge-Kutta d'ordre 2, comme pour Boris-Buneman, avec des valeurs legerement differentes, mais la meme pente.
+Dans cette partie il est consider\'e que la valeur $E_0 \ne 0$, mais que $E_0 = 10^5$Vm$^{-1}$. Les autres valeurs restent comme dans l'exercice pr\'ec\'edent. Les sch\'emas utilis\'ees sont Runge-Kutta d'ordre 2 et Boris-Buneman.
+	\subsubsection{\'Etude de convergence en $\Delta t$}
+	En impl\'ementent les solutions analytiques dans le fichier ParameterScan.m de Matlab, la figure obtenu pour le maximum de l'erreure de la position en fonction de $\Delta t$. Nous obtenons des droites pour Runge-Kutta d'ordre 2 et pour Boris-Buneman, que l'on peut observer sur la figure \ref{Fig: Conv Pos}, ce qu'implique une convergence lin\'eaire en fonction de $\Delta t$. En utilisant un fit lin\'eaire on peut d\'eterminer l'ordre de convergence des deux sch\'emas, qui est 2 ($y = 2x + 32$ et $y = 2x + 32.5$), facilement v\'erifiable sur la figure \ref{Fig: Fit Lin Pos}.
 	
 	
 	\begin{figure}[h]
 				\begin{minipage}[c]{.46\linewidth}
 					\centering
 					\includegraphics[scale = 0.6]{conv_pos_RK_BB.png}
-					\caption{\em\label{Fig: Conv Pos} Etude de la convergence de l'erreure sur la position selon $\Delta t$}
+					\caption{\em\label{Fig: Conv Pos} Etude de la convergence de l'erreure maximale sur la position selon $\Delta t$}
 				\end{minipage}
 				\hfill%
 				\begin{minipage}[c]{.46\linewidth}
 					\centering
-					\includegraphics[scale = 0.6]{conv_vit_RK_BB.png}
-					\caption{\em\label{Fig: Conv Vit} Etude de la convergence de l'erreure sur la vitesse selon $\Delta t$}
+					\includegraphics[scale = 0.6]{fit_lin_pos.png}
+					\caption{\em\label{Fig: Fit Lin Pos} Fit lin\'eaire de l'erreure sur la position en $\Delta t$}
 				\end{minipage}
 			\end{figure}
+			
+			
+	\subsubsection{Conservation de l'\'energie}
+	En prenons en compte le champ \'el\'ectrique, nous avons une nouvelle force \`a considerer. La charge $q$ de la particule \'etant positive, on a $\Vec{F_E} = qE_0\Vec{e_z}$, et donc la force est orient\'e comme le champ \'el\'ectrique, ce qu'implique que l'\'energie potentielle est n\'egative selon l'axe $\Vec{e_z}$ d'apr\`es la formule $\Vec{E} = -\int \Vec{F}d\Vec{z}$. On peut donc exprimer l'\'energie m\'ecanique comme : 
+	\begin{equation}\label{e_m_b_ii}
+	E_{mec} = \frac{1}{2}m\left|\left|\Vec{v}\right|\right|^2 - qEz
+	\end{equation}
+	En d\'efinissont $\Delta E(t)$ comme $E(t)$ et $E(0)$, on fait une \'etude de convergence de $\Delta E(t)$ en fonction de nombre de pas (nsteps). Ceci est repr\'esent\'ee sur la fig \ref{Fig: }.
+	
+	\begin{figure}[h]
+					\centering
+					\includegraphics[scale = 0.6]{ener_mec_cons.png}
+					\caption{\em\label{Fig: Cons Emec} $\Delta E(t)$ en fonction du nombre de pas de temps.}
+	\end{figure}
+On n'arrive pratiquement pas \`a diff\'erencier les droites pour les valeurs : $n_{steps} = 4642$, $n_{steps} = 6952$ et $n_{steps} = 10000$, mais on arrive bien \`a voir que la valeur de $\Delta E(t)$ semble bien converger lorsque $n_{steps}$ devient grand :
+
+\begin{equation}\label{cons_en}
+\lim_{n_{steps} \rightarrow +\infty} \Delta E(t) = 0 \forall t \in [0;t_{fin}]
+\end{equation}
 
 \section{Conclusions}
 
