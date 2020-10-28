@@ -15,4 +15,4 @@
 \contentsline {subsection}{\numberline {3.3}Cas d'un champ magn\'etique non uniforme : d\'erive $\mathaccentV {vec}17E{B}\times \nabla B$}{8}{subsection.3.3}
 \contentsline {subsubsection}{\numberline {3.3.1}Cas d'un proton ($q = e$) et d'un antiproton ($q = -e$)}{8}{subsubsection.3.3.1}
 \contentsline {subsubsection}{\numberline {3.3.2}La quantit\'e $\mu = \frac {mv^2}{2B}$}{8}{subsubsection.3.3.2}
-\contentsline {section}{\numberline {4}Conclusions}{9}{section.4}
+\contentsline {section}{\numberline {4}Conclusions}{8}{section.4}

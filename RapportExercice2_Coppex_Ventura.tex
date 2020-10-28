@@ -444,7 +444,18 @@ La quantit\'e $\mu$ s'appelle le moment magn\'etique d'une particule, dans notre
 
 \section{Conclusions}
 
-Apr\`es avoir fait cet exercie, on peut conclure que 
+Apr\`es avoir fait cet exercice, on conna\^it mieux les int\'egrateurs et leurs sp\'ecificit\'es propres. 
+
+On remarque que la convergence de l'erreur sur la position et sur la vitesse sont du m\^eme ordre pour tous les int\'egrateurs \'etudi\'es. 
+On peut voir que plus l'int\'egrateur est compliqu\'e, plus son erreur est basse et que tous ne convergent pas de la m\^eme mani\`ere lorsque $\Delta t$ devient plus grand. 
+
+Quant \`a la conservation de l'\'energie m\'ecanique, il est visible que les sch\'emas d'Euler explicite et de Runge-Kutta d'ordre 2 sont les moins pr\'ecis.  Ensuite, Euler-Cromer converge vers la bonne valeur d\`es que le pas de temps minimum est respect\'e. De plus, Euler implicite est stable, mais il dissipe un peu d'\'energie \`a cause des erreurs num\'eriques. 
+On remarque aussi que l'int\'egrateur le plus efficace est celui de Boris-Buneman car il conserve exactement l'\'energie m\'ecanique, aux arrondis pr\`es
+
+%Ta partie
+
+Ainsi, on a appris \`a conna\^itre plusieurs int\'egrateurs et on voit que pour des composantes diff\'erentes, les int\'egrateurs n'agissent pas froc\'ement de la m\^eme mani\`ere. On va pouvoir \^etre plus \`a m\^eme de choisir celui qui convient le mieux lors de futurs exercices. Il faut cependant savoir trouver l'\'equilibre entre l'erreur que l'on est pr\^et \`a avoir et la place et que l'on a pour calculer.
+
 
 %-----------------------------------------------------------
 
