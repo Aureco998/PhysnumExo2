@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.12.5)  27 OCT 2020 18:18
+This is XeTeX, Version 3.14159265-2.6-0.99999 (TeX Live 2018/W32TeX) (preloaded format=xelatex 2018.12.5)  28 OCT 2020 10:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -598,7 +598,7 @@ File: se-ascii-print.def 2016/05/16 v1.11 stringenc: Printable ASCII characters
 ) [1
 
 ]
-[2] [3]
+[2] [3] [4]
 File: Convergence_erreur_position_tous_integrateurs.png Graphic file (type bmp)
 
 <Convergence_erreur_position_tous_integrateurs.png>
@@ -648,7 +648,7 @@ Overfull \hbox (36.9558pt too wide) in paragraph at lines 309--310
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[4]
+[5]
 File: D_E_mec_BB.png Graphic file (type bmp)
 <D_E_mec_BB.png>
 
@@ -683,35 +683,88 @@ Overfull \hbox (36.9558pt too wide) in paragraph at lines 352--353
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[5]
+[6]
 
-LaTeX Warning: Reference `Fig: ' on page 6 undefined on input line 363.
+LaTeX Warning: Reference `Fig: ' on page 7 undefined on input line 363.
 
 File: ener_mec_cons.png Graphic file (type bmp)
 <ener_mec_cons.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 396.
- [7] [8]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 396.
+
+LaTeX Warning: Reference `sol_an' on page 7 undefined on input line 383.
+
+[7]
+File: final_traj_prot.png Graphic file (type bmp)
+<final_traj_prot.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 398--399
+ [][] 
+ []
+
+File: final_traj_antiprot.png Graphic file (type bmp)
+<final_traj_antiprot.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 404--405
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+File: proton_pos.png Graphic file (type bmp)
+<proton_pos.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 416--417
+ [][] 
+ []
+
+File: antiproton_pos.png Graphic file (type bmp)
+<antiproton_pos.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 422--423
+ [][] 
+ []
+
+File: mm_p.png Graphic file (type bmp)
+<mm_p.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 430--431
+ [][] 
+ []
+
+File: mm_ap.png Graphic file (type bmp)
+<mm_ap.png>
+
+Overfull \hbox (36.9558pt too wide) in paragraph at lines 436--437
+ [][] 
+ []
+
+
+Underfull \vbox (badness 4416) has occurred while \output is active []
+
+ [8]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 465.
+
+[9] [10] [11]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 465.
  (./RapportExercice2_Coppex_Ventura.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 396.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 396.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 465.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 465.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 396.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 465.
  ) 
 Here is how much of TeX's memory you used:
- 20794 strings out of 494876
- 385426 string characters out of 6176006
- 485608 words of memory out of 5000000
- 24563 multiletter control sequences out of 15000+600000
+ 20827 strings out of 494876
+ 385980 string characters out of 6176006
+ 486064 words of memory out of 5000000
+ 24590 multiletter control sequences out of 15000+600000
  537624 words of font info for 61 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 39i,8n,39p,726b,502s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,8n,39p,820b,501s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on RapportExercice2_Coppex_Ventura.pdf (8 pages).
+Output written on RapportExercice2_Coppex_Ventura.pdf (11 pages).
