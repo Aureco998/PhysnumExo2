@@ -81,7 +81,7 @@
 	{\small \mail{aurelie.coppex@epfl.ch, vincent.ventura@epfl.ch}}}
 	\date{\today}\maketitle
 	\tableofcontents % Table des matieres
-
+\newpage
 	% Quelques options pour les espacements entre lignes, l'indentation 
 	% des nouveaux paragraphes, et l'espacement entre paragraphes
 	%\baselineskip=16pt
@@ -98,51 +98,51 @@
 	
 	Le but est d'en \'etudier la trajectoire afin de pouvoir analyser les propri\'et\'es de stabilit\'e et de convergence des cinq sch\'emas suivants : 
 	Euler explicite, Euler implicite, Euler-Cromer, Runge-Kutta d'ordre 2 et Boris Buneman \cite{NdC}.
-	\newpage
+
 
 \section{Calculs analytiques}
 
-	Dans cette partie, tous les calculs sont faits avec les valeurs suivantes :
+	\noindent Dans cette partie, tous les calculs sont faits avec les valeurs suivantes \cite{Notes} :
 	
-	la masse de la particule : $m = 1.6726 \cdot 10^{-27}$ kg, 
+	\noindent la masse de la particule : $m = 1.6726 \cdot 10^{-27}$ kg, 
 	
-	la charge de la particule :	$q = 1.6022 \cdot 10^{-19}$ C ,
+	\noindent charge de la particule :	$q = 1.6022 \cdot 10^{-19}$ C ,
 	
-	sa position initiale : $\vec{v_0} = (v_{x0}, v_{y0})$.
+	\noindent sa position initiale : $\vec{v_0} = (v_{x0}, v_{y0})$.
 	
-	La particule est plongée dans un champ \'electrique uniforme $\vec{E} = E_0 \hat{z}$ et un champ magn\'etique uniforme $\vec{B} = B_0 \hat{y}$.
+	\noindent La particule est plongée dans un champ \'electrique uniforme $\vec{E} = E_0 \hat{z}$ et un champ magn\'etique uniforme $\vec{B} = B_0 \hat{y}$. 
 
 
 	\subsection{\'Equations du mouvement}
 	
-		On cherche tout d'abord \`a \'etablir les \'equations diff\'erencielles du mouvement sous la forme $\frac{d\bf y}{dt} = {\bf f(\bf{y}})$ avec ${\bf y} = (x, z, v_x, v_z)$. 
+		\noindent On cherche tout d'abord \`a \'etablir les \'equations diff\'erencielles du mouvement sous la forme $\frac{d\bf y}{dt} = {\bf f(\bf{y}})$ avec ${\bf y} = (x, z, v_x, v_z)$. 
 		Pour cela, on applique la $2^{eme}$ loi de Newton ($\sum{\bf F} = m \bf a$ ) et on la projette sur les axes x, y et z.
 		
-		Il en r\'esulte :
+		\noindent Il en r\'esulte :
 		
 		\begin{equation}
 			{\bf F_p  + F_L} = m \bf{a}
 		\end{equation}
 		
-		Avec ${\bf F_p}$, la force de pesanteur et ${\bf F_L}$, la force de Lorentz.
+		\noindent Avec ${\bf F_p}$, la force de pesanteur et ${\bf F_L}$, la force de Lorentz.
 		
-		La force de pesanteur est n\'egligeable pour une particule \'el\'ementaire. Il ne reste donc que la force de Lorentz qui est donn\'ee par : $\vec{F} = q(\vec{E}+\vec{v} \times \vec{B})$.
+		\noindent La force de pesanteur est n\'egligeable pour une particule \'el\'ementaire. Il ne reste donc que la force de Lorentz qui est donn\'ee par : ${\bf F_L} = q({\bf E}+{\bf v} \times {\bf B})$.
 		
-		Les projections sur les axes donnent:
+		\noindent Les projections sur les axes donnent:
 		
 		\begin{equation}\label{xpp}
-			{\bf(Ox):} -qB_0 \dot{z} = m \ddot{x}  \iff \ddot{x} = -\frac{qB_0}{m} \dot{z}
+			{\bf(Ox)}: -qB_0 \dot{z} = m \ddot{x}  \iff \ddot{x} = -\frac{qB_0}{m} \dot{z}
 		\end{equation}
 		
 		\begin{equation}
-			{\bf(Oy):}  0 = m \ddot{y} \iff \ddot{y} = 0
+			{\bf(Oy)}:  0 = m \ddot{y} \iff \ddot{y} = 0
 		\end{equation}
 		
 		\begin{equation}\label{zpp}
-			{\bf(Oz):}  q(E_0 + B_0\dot{x}) = m \ddot{z} \iff \ddot{z} = \frac{q}{m} (E_0+B_0 \dot{x}) 
+			{\bf(Oz)}:  q(E_0 + B_0\dot{x}) = m \ddot{z} \iff \ddot{z} = \frac{q}{m} (E_0+B_0 \dot{x}) 
 		\end{equation}
 		
-		L'\'equation du mouvement s'\'ecrit donc :
+	\noindent	L'\'equation du mouvement s'\'ecrit donc :
 		\begin{equation}
 		\frac{d\bf y}{dt} = \begin{pmatrix}  \dot x \\ \dot z \\ -\frac{qB_0}{m} \dot{z} \\ \frac{q}{m} (E_0+B_0 \dot{x}) \end{pmatrix}
 		\end{equation}
@@ -150,37 +150,37 @@
 
 	\subsection{\'Energie m\'ecanique et sa conservation}
 	
-		L'\'energie m\'ecanique est d\'efinie comme : $E_{mec} = E_{cin} + E_{pot}$. Or, l'\'energie cin\'etique est connue et vaut $E_{cin} = \frac{1}{2} m {\vec{v}}^2$.
-		Il ne reste donc plus qu'\`a calculer l'\'energie potentielle. Pour cela, la formule $E_{pot} = \int_P^O \vec{F}\, \mathrm d\vec{l}$ \cite{FT}. Ce qui donne :
+		\noindent L'\'energie m\'ecanique est d\'efinie comme : $E_{mec} = E_{cin} + E_{pot}$. Or, l'\'energie cin\'etique est connue et vaut $E_{cin} = \frac{1}{2} m {\vec{v}}^2$.
+		Il ne reste donc plus qu'\`a calculer l'\'energie potentielle. Pour cela, on utilise la formule $E_{pot} = \int_P^O \vec{F}\, \mathrm d\vec{l}$ \cite{FT}. Ce qui donne :
 	
-			\begin{equation}
+			\begin{equation}\label{E_p}
 				E_{pot} = qE_0 (z_0-z)
 			\end{equation}
 		
-		Ainsi, l'\'equation suivante est obtenue :
+		\noindent Ainsi, avec (\ref{E_p}) l'\'equation suivante est obtenue :
 	
 			\begin{equation}
 				E_{mec} = \frac{1}{2}m(v_x^2+v_z^2) + qE_0(z_0 - z)
 			\end{equation}
 		
-		Pour montrer que cette \'energie est conserv\'ee, il faut en calculer la d\'eriv\'ee:
+		\noindent Pour montrer que cette \'energie est conserv\'ee, il faut en calculer la d\'eriv\'ee:
 	
-			\begin{equation}
+			\begin{equation} \label{dE}
 				\frac{dE_{mec}}{dt} = \frac{1}{2} m(2\dot{x}\ddot{x} + 2\dot{z}\ddot{z}) - 	qE_0\dot{z} 
 			\end{equation}
-		En appliquant les équations (\ref{xpp}) et (\ref{zpp}), on trouve:
+		En appliquant les équations (\ref{xpp}) et (\ref{zpp}) \`a (\ref{dE}), on trouve:
 	
 			\begin{equation}
 				\frac{dE_{mec}}{dt}= -qB_0\dot{z}\dot{x}+qE_0\dot{z}+qB_0\dot{x}\dot{z}-qE_0\dot{z} = 0
 			\end{equation}
 	
-		Ce qui prouve que l'\'energie m\'ecanique est conserv\'ee.
+		\noindent Ce qui prouve que l'\'energie m\'ecanique est conserv\'ee.
 	
 	\subsection{Solution analytique}
 	
-		Les conditions initiales sont les suivantes : $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\hat{z}$.
+		\noindent Les conditions initiales sont les suivantes : $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\hat{z}$ \cite{Notes}.
 		
-		En int\'egrant les \'equations (\ref{xpp}) et (\ref{zpp}), il est possible de trouver $\dot{x}$ et $\dot{z}$ :
+		\noindent En int\'egrant les \'equations (\ref{xpp}) et (\ref{zpp}), il est possible de trouver $\dot{x}$ et $\dot{z}$ :
 		
 			\begin{equation}\label{aa}
 				\left \{
@@ -191,10 +191,10 @@
 				\right .
 			\end{equation}
 		
-		En appliquant la condition initiale $ \vec{v}(0) = v_0\hat{z}$ à (\ref{aa}), on obtient $C_1 = \frac{qB_0}{m}z_0 $ et $C_2 = v_0 -\frac{q}{m}B_0x_0$.
+		\noindent En utilisant la condition initiale $ \vec{v}(0) = v_0\hat{z}$ à (\ref{aa}), on obtient $C_1 = \frac{qB_0}{m}z_0 $ et $C_2 = v_0 -\frac{q}{m}B_0x_0$.
 
 			
-		En les appliqant dans les \'equations de la vitesse, il en ressort :
+		\noindent En les appliquant dans les \'equations de la vitesse (\ref{aa}), il en ressort :
 				
 			\begin{equation}\label{v}
 				\left \{
@@ -205,7 +205,7 @@
 				\right .
 			\end{equation}
 			
-		\`A partir desquelles (\ref{v}) il est possible de trouver les \'equations de l'acc\'eleration:
+		\noindent \`A partir de (\ref{v}), que l'on remplace dans (\ref{xpp}) et (\ref{zpp}), il est possible de trouver les \'equations de l'acc\'eleration:
 		
 			\begin{equation} \label{diff}
 				\left \{
@@ -217,15 +217,15 @@
 				\right .
 			\end{equation}
 	
-	En r\'esolvant les \'equations diff\'erentielles du 2\`eme ordre (\ref{diff}), on trouve la solution analytique suivante :
+	\noindent En r\'esolvant les \'equations diff\'erentielles du 2\`eme ordre (\ref{diff}), on trouve la solution analytique suivante :
 	
 		\begin{equation} 
 			\left \{
 			\begin{array}{r c l}
-				x(t) & = & \frac{qB_0v_0}{m} \cos(\frac{m}{qB_0}t) + \frac{E_0m}{qB_0^2} \sin(\frac{qB_0}{m}t) -\frac{E_0}{B_0}t - \frac{mv_0}{qB_0} \\
-				v_x(t) & = & - v_0 \sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0} \cos(\frac{qB_0}{m}t) -\frac{E_0}{B_0} \\
-				z(t) & = & -\frac{mE_0}{qB_0^2} \cos(\frac{qB_0}{m}t) + \frac{mv_0}{qB_0} \sin(\frac{qB_0}{m}t) + \frac{mE_0}{qB_0^2}\\
-				v_z(t) & = & \frac{E_0}{B_0} \sin(\frac{qB_0}{m}t) + v_0\cos(\frac{qB_0}{m}t)
+				x(t) & = & \frac{qB_0v_0}{m} \cos \left(\frac{m}{qB_0}t\right) + \frac{E_0m}{qB_0^2} \sin \left(\frac{qB_0}{m}t\right) -\frac{E_0}{B_0}t - \frac{mv_0}{qB_0} \\
+				v_x(t) & = & - v_0 \sin\left(\frac{qB_0}{m}t \right) + \frac{E_0}{B_0} \cos \left(\frac{qB_0}{m}t\right) -\frac{E_0}{B_0} \\
+				z(t) & = & -\frac{mE_0}{qB_0^2} \cos\left(\frac{qB_0}{m}t\right) + \frac{mv_0}{qB_0} \sin\left(\frac{qB_0}{m}t\right) + \frac{mE_0}{qB_0^2}\\
+				v_z(t) & = & \frac{E_0}{B_0} \sin\left(\frac{qB_0}{m}t\right) + v_0\cos\left(\frac{qB_0}{m}t\right)
 			\end{array}
 			\right .
 		\end{equation}
@@ -236,17 +236,17 @@
 \section{Simulations et Analyses}
 
 	\subsection{Cas sans champ \'electrique mais avec un champ magn\'etque}
-		Dans cette partie, les simulations se font avec les valeurs suivantes :
+		\noindent Dans cette partie, les simulations se font avec les valeurs suivantes \cite{Notes} :
 		
-		L'intensit\'e du champ \'electrique $E_0=0$,
+		\noindent L'intensit\'e du champ \'electrique $E_0=0$,
 		
-		l'intensit\'e du champ magn\'etique $B_0=5$T,
+		\noindent l'intensit\'e du champ magn\'etique $B_0=5$T,
 		
-		les conditions initiales  $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\vec{e_z}$,
+		\noindent les conditions initiales  $\vec{x}(0) = 0$ et $ \vec{v}(0) = v_0\vec{e_z}$,
 		
-		la vitesse initiale $v_0 = 4 \cdot 10^5$ m/s et 
+		\noindent la vitesse initiale $v_0 = 4 \cdot 10^5$ m/s et 
 	
-		le temps final $t_{fin} = \frac{10 \pi}{\omega} = 6.5593 \cdot 10^{-8}$ s, le temps n\'ecessaire pour que le proton effectue 5 p\'eriodes de rotation. 
+		\noindent le temps final $t_{fin} = \frac{10 \pi}{\omega} = 6.5593 \cdot 10^{-8}$ s, le temps n\'ecessaire pour que le proton effectue 5 p\'eriodes de rotation. 
 		
 		
 		\subsubsection{Convergence num\'erique de l'erreur sur la position et la vitesse}
@@ -265,19 +265,19 @@
 			\end{minipage}
 		\end{figure}
 
-		Dans la figure \ref{Fig:Convergence erreur position} une simulation de l'erreur maximale locale sur la position a \'et\'e faite. C'est donc l'erreur num\'erique qui est observ\'ee. On repr\'esente les convergences selon les 5 int\'egrateurs : Euler explicite (E), Euler implicite (EI), Euler-Cromer (EC), Runge-Kutta d'ordre 2 (RK2) et Boris-Buneman (BB). On s'int\'eresse maintenant \`a leur ordre de convergence, ce dernier est d\'efini ici comme \'etant la pente de la courbe form\'ee par l'erreur lorsque $\Delta t$ est petit. Une fonction a \'et\'e cr\'e\'ee dans le fichier Parameterscan pour calculer ces pentes. Les résultats sont les suivants.
+		\noindent Dans la figure \ref{Fig:Convergence erreur position}, une simulation de l'erreur maximale locale sur la position a \'et\'e faite. C'est donc l'erreur num\'erique qui est observ\'ee. On repr\'esente les convergences selon les 5 int\'egrateurs : Euler explicite (E), Euler implicite (EI), Euler-Cromer (EC), Runge-Kutta d'ordre 2 (RK2) et Boris-Buneman (BB). On s'int\'eresse maintenant \`a leur ordre de convergence. Ce dernier est d\'efini ici comme \'etant la pente de la courbe form\'ee par l'erreur lorsque $\Delta t$ est petit. Une fonction a \'et\'e cr\'e\'ee dans le fichier ParameterScan.m pour calculer ces pentes. Les résultats sont les suivants.
 		
-		Pour Euler implicite, les ordres de convegence de la position et de la vitesse sont les m\^emes et valent 1. Il en va de m\^eme pour Euler implicite.
+		\noindent Pour Euler implicite, les ordres de convegence de la position et de la vitesse sont les m\^emes et valent 1. Il en va de m\^eme pour Euler implicite.
 		
-		Euler-Cromer est \'egalement d'ordre 1 pour la position et la vitesse, ce qui se confirme par la figure \ref{Fig:Convergence erreur position} car on voit que les trois droites des premiers int\'egrateurs sont parall\`eles. 
+		\noindent Euler-Cromer est \'egalement d'ordre 1 pour la position et la vitesse, ce qui se confirme par la figure \ref{Fig:Convergence erreur position} car on voit que les trois droites des premiers int\'egrateurs sont parall\`eles. 
 		
-		Runge-Kutta et Boris-Buneman sont d'ordre 2, ce qui est confirmé par les deux droites parall\`eles sur la figure \ref{Fig: Convergence erreur vitesse}.
+		\noindent Runge-Kutta et Boris-Buneman sont d'ordre 2, ce qui est confirmé par les deux droites parall\`eles sur la figure \ref{Fig: Convergence erreur vitesse}.
 		
 		
 		
 		
 
-		\subsubsection{Non-conservation de l'Energie m\'ecanique}
+		\subsubsection{Non-conservation de l'\'energie m\'ecanique}
 		
 		
 	\begin{figure}[h]
@@ -294,7 +294,7 @@
 		\end{minipage}
 	\end{figure}
 
-		La figure \ref{Fig:Emec E} montre que l'int\'egrateur d'Euler explicite est instable car, pour des petits pas de temps, on voit clairement que $\Delta E_{mec}$ croît exponentiellement. 
+		\noindent La figure \ref{Fig:Emec E} montre que l'int\'egrateur d'Euler explicite est instable car, pour des petits pas de temps, on voit clairement que $\Delta E_{mec}$ croît exponentiellement. 
 		En ce qui concerne Runge-Kutta, on voit sur la figure \ref{Fig: Emec RK2} que la variation de l'\'energie m\'ecanique croît fortement pour des petits pas de temps, elle est donc \'egalement instable.
 		
 				\begin{figure}[h]
@@ -331,13 +331,14 @@
 	
 	La figure \ref{Fig:Emec BB} montre que l'int\'egrateur de Boris-Buneman conserve exactement l'\'energie m\'ecanique, aux arrondis pr\`es, pour tous les pas de temps et, par cons\'equent, pour toute valeur de $\Delta t$.
 	
-	Et la figure \ref{Fig: Emec EI2} est faite  afin de pouvoir comparer les deux int\'egrateurs d'Euler explicite et implicite. On voit nettement que le sch\'ema implicite est bien plus stable que l'explicite, cependant il d\'cro\^it contrairemtn \`a l'autre. Cela est d\^u au fait qu'il dissipe de l'\'energie, ce qui est ce \`a quoi on s'attend, comme dit dans le polycopi\'e (\cite{NdC}, p.34). Cette dissipation est d'origine num\'erique et non pas physique.
+	Et la figure \ref{Fig: Emec EI2} est faite  afin de pouvoir comparer les deux int\'egrateurs d'Euler explicite et implicite. On voit nettement que le sch\'ema implicite est bien plus stable que l'explicite, cependant il d\'cro\^it contrairement \`a celui explicite. Cela est d\^u au fait qu'il dissipe de l'\'energie, ce qui est ce \`a quoi on s'attend, comme dit dans le polycopi\'e (\cite{NdC}, p.34). Cette dissipation est d'origine num\'erique et non pas physique.
+
 		
 	
 \subsection{Cas avec un champ \'electrique et un champ magn\'etique : d\'erive $\Vec{E}\times\Vec{B}$}
-Dans cette partie il est consider\'e que la valeur $E_0 \ne 0$, mais que $E_0 = 10^5$Vm$^{-1}$. Les autres valeurs restent comme dans l'exercice pr\'ec\'edent. Les sch\'emas utilis\'ees sont Runge-Kutta d'ordre 2 et Boris-Buneman.
+\noindent Dans cette partie il est consider\'e que la valeur $E_0 \ne 0$, mais que $E_0 = 10^5$Vm$^{-1}$ \cite{Notes}. Les autres valeurs restent comme dans l'exercice pr\'ec\'edent. Les sch\'emas utilis\'ees sont Runge-Kutta d'ordre 2 et Boris-Buneman.
 	\subsubsection{\'Etude de convergence en $\Delta t$}
-	En impl\'ementent les solutions analytiques dans le fichier ParameterScan.m de Matlab, la figure obtenu pour le maximum de l'erreure de la position en fonction de $\Delta t$. Nous obtenons des droites pour Runge-Kutta d'ordre 2 et pour Boris-Buneman, que l'on peut observer sur la figure \ref{Fig: Conv Pos}, ce qu'implique une convergence lin\'eaire en fonction de $\Delta t$. En utilisant un fit lin\'eaire on peut d\'eterminer l'ordre de convergence des deux sch\'emas, qui est 2 ($y = 2x + 32$ et $y = 2x + 32.5$), facilement v\'erifiable sur la figure \ref{Fig: Fit Lin Pos}.
+	\noindent En impl\'ementent les solutions analytiques dans le fichier ParameterScan.m de Matlab, la figure repr\'esentant le maximum de l'erreur de la position en fonction de $\Delta t$ est obtenue. Nous obtenons des droites pour Runge-Kutta d'ordre 2 et pour Boris-Buneman, que l'on peut observer sur la figure \ref{Fig: Conv Pos}, ce qu'implique une convergence lin\'eaire en fonction de $\Delta t$. En utilisant un fit lin\'eaire on peut d\'eterminer l'ordre de convergence des deux sch\'emas, qui est de 2 ($y = 2x + 32$ et $y = 2x + 32.5$), ce qui est facilement v\'erifiable sur la figure \ref{Fig: Fit Lin Pos}.
 	
 	
 	\begin{figure}[h]
@@ -356,18 +357,18 @@ Dans cette partie il est consider\'e que la valeur $E_0 \ne 0$, mais que $E_0 = 
 			
 			
 	\subsubsection{Conservation de l'\'energie}
-	En prenons en compte le champ \'el\'ectrique, nous avons une nouvelle force \`a considerer. La charge $q$ de la particule \'etant positive, on a $\Vec{F_E} = qE_0\Vec{e_z}$, et donc la force est orient\'e comme le champ \'el\'ectrique, ce qu'implique que l'\'energie potentielle est n\'egative selon l'axe $\Vec{e_z}$ d'apr\`es la formule $\Vec{E} = -\int \Vec{F}d\Vec{z}$. On peut donc exprimer l'\'energie m\'ecanique comme : 
+	\noindent En prenant en compte le champ \'electrique, nous avons une nouvelle force \`a consid\'erer. La charge $q$ de la particule \'etant positive, on a $\Vec{F_E} = qE_0\Vec{e_z}$, et donc la force est orient\'ee dans la m\^eme direction que le champ \'electrique, ce qui implique que l'\'energie potentielle est n\'egative selon l'axe $\Vec{e_z}$ d'apr\`es la formule $\Vec{E} = -\int \Vec{F}d\Vec{z}$ \cite{FT}. On peut donc exprimer l'\'energie m\'ecanique comme : 
 	\begin{equation}\label{e_m_b_ii}
 	E_{mec} = \frac{1}{2}m\left|\left|\Vec{v}\right|\right|^2 - qEz
 	\end{equation}
-	En d\'efinissont $\Delta E(t)$ comme $E(t)$ et $E(0)$, on fait une \'etude de convergence de $\Delta E(t)$ en fonction de nombre de pas (nsteps). Ceci est repr\'esent\'ee sur la fig \ref{Fig: }.
+	En d\'efinissant $\Delta E(t)$ comme $E(t)-E(0)$, on fait une \'etude de convergence de $\Delta E(t)$ en fonction de nombre de pas (nsteps). Ceci est repr\'esent\'e sur la fig \ref{Fig: Cons Emec}.
 	
 	\begin{figure}[h]
 					\centering
 					\includegraphics[scale = 0.6]{ener_mec_cons.png}
 					\caption{\em\label{Fig: Cons Emec} $\Delta E(t)$ en fonction du nombre de pas de temps.}
 	\end{figure}
-On n'arrive pratiquement pas \`a diff\'erencier les droites pour les valeurs : $n_{steps} = 4642$, $n_{steps} = 6952$ et $n_{steps} = 10000$, mais on arrive bien \`a voir que la valeur de $\Delta E(t)$ semble bien converger lorsque $n_{steps}$ devient grand :
+\noindent On n'arrive pratiquement pas \`a diff\'erencier les droites pour les valeurs : $n_{steps} = 4642$, $n_{steps} = 6952$ et $n_{steps} = 10000$, mais on arrive bien \`a voir que la valeur de $\Delta E(t)$ semble bien converger lorsque $n_{steps}$ devient grand, on peut donc en d\'eduire que :
 
 \begin{equation}\label{cons_en}
 \lim_{n_{steps} \rightarrow +\infty} \Delta E(t) = 0 \forall t \in [0;t_{fin}]
@@ -375,14 +376,14 @@ On n'arrive pratiquement pas \`a diff\'erencier les droites pour les valeurs : $
 
 \subsubsection{Trajectoire de la particule dans un r\'ef\'erentiel en translation uniforme \`a la vitesse $v_E = \Vec{E}\times\Vec{B}/B^2$}
 
-La formule de $v_E$ \'etant donn\'e, on peut calculer sa valeur, qui est donn\'e par : 
+\noindent La formule de $v_E$ \'etant donn\'ee, on peut calculer sa valeur : 
 \begin{equation}\label{v_e}
 \Vec{v}_E = \frac{1}{B_0^2}\begin{pmatrix}0 \\ 0 \\ E_0 \end{pmatrix}\times\begin{pmatrix}0 \\ B_0 \\ 0 \end{pmatrix} = -\frac{1}{B_0}\begin{pmatrix}E_0 \\ 0 \\ 0 \end{pmatrix}
 \end{equation}
 
-On peut soustraire la valeur dans l'\'equation de $v_x(t)$ de l'\'equation \ref{sol_an}, ce qui donne :
+\noindent On peut soustraire la valeur dans l'\'equation de $v_x(t)$ de l'\'equation \ref{v}, ce qui donne :
 \begin{equation}\label{sol v_e}
-v_x(t) = - v_0\sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0}\cos(\frac{qB_0}{m}t)
+v_x(t) = - v_0\sin\left(\frac{qB_0}{m}t\right) + \frac{E_0}{B_0}\cos\left(\frac{qB_0}{m}t\right)
 \end{equation}
 
 \begin{figure}[h]
@@ -399,14 +400,14 @@ v_x(t) = - v_0\sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0}\cos(\frac{qB_0}{m}t)
 				\end{minipage}
 			\end{figure}
 
-On voit sur la figure de Runge-Kutta \ref{Fig: Traj R-K-2} et sur la figure de Boris-Buneman \ref{Fig: Traj B-B} que les trajectoires font une ellipse, ce qui est attendu, car la translation fait que le r\'ef\'erentiel "suit" la particule le long de l'axe $\hat{x}$.
+\noindent On voit sur la figure de Runge-Kutta (\ref{Fig: Traj R-K-2}) et sur la figure de Boris-Buneman (\ref{Fig: Traj B-B}) que les trajectoires forment une ellipse, ce qui est attendu, car la translation implique que le r\'ef\'erentiel "suit" la particule le long de l'axe $\hat{x}$.
 
 
 \subsection{Cas d'un champ magn\'etique non uniforme : d\'erive $\Vec{B}\times\nabla B$}
-Dans cette section nous consid\'erons un champ magn\'etique d'intensit\'e variable $\Vec{B} = B(x)\hat{y}$, o\`u $B(x) = B_0(1 + \kappa x)$, $\kappa = 100$m$^{-1}$, $B_0 = 5$T, $E = 0$, $v_{x_0} = 0$, $v_{z_0} = 4\cdot10^5$m.s$^{-1}$, $x_0 = \frac{mv_{z_0}}{qB_0}$, $z_0 = 0$ et $t_{fin} = 6.5593\cdot10^{-7}$s. Le sch\'ema utilis\'e est Boris-Buneman.
+\noindent Dans cette section nous consid\'erons un champ magn\'etique d'intensit\'e variable $\Vec{B} = B(x)\hat{y}$, o\`u $B(x) = B_0(1 + \kappa x)$, $\kappa = 100$m$^{-1}$, $B_0 = 5$T, $E = 0$, $v_{x_0} = 0$, $v_{z_0} = 4\cdot10^5$ms$^{-1}$, $x_0 = \frac{mv_{z_0}}{qB_0}$, $z_0 = 0$ et $t_{fin} = 6.5593\cdot10^{-7}$s \cite{Notes}. Le sch\'ema utilis\'e est celui de Boris-Buneman.
 
 \subsubsection{Cas d'un proton ($q = e$) et d'un antiproton ($q = -e$)}
-Dans les cas de proton et antiproton les trajectoires sont des cyclo\"\i des, et on peut observer que lorsque $n_{steps}$ devient tr\`es grand, leurs orbites deviennent de plus en plus des colonnes droites. On peut voir leurs limites sur les figures \ref{Fig: Prot Traj} et \ref{Fig: Anti Traj}.
+\noindent Dans les cas d'un proton et d'un antiproton, les trajectoires sont des cyclo\"\i des. On peut observer que lorsque $n_{steps}$ devient tr\`es grand, leurs orbites deviennent de plus en plus des colonnes droites. On peut voir leurs limites sur les figures \ref{Fig: Prot Traj} et \ref{Fig: Anti Traj}.
 \begin{figure}[h]
 				\begin{minipage}[c]{.46\linewidth}
 					\centering
@@ -420,10 +421,10 @@ Dans les cas de proton et antiproton les trajectoires sont des cyclo\"\i des, et
 					\caption{\em\label{Fig: Anti Traj} Trajectoire d'un antiproton.}
 				\end{minipage}
 			\end{figure}
-On voit que la colonne du proton est orient\'e vers le bas, alors que celui de l'antiproton est orient\'e vers le haut. La trajectoire est parcourue dans un sens anti-horaire par le proton, et dans un sens horaire par l'antiproton.
+On voit que la colonne du proton est orient\'ee vers le bas, alors que celle de l'antiproton est orient\'ee vers le haut. La trajectoire est parcourue dans le sens anti-horaire par le proton, et dans le sens horaire par l'antiproton.
 
 \subsubsection{La quantit\'e $\mu = \frac{mv^2}{2B}$}
-La quantit\'e $\mu$ s'appelle le moment magn\'etique d'une particule, dans notre cas soit du proton, soit de l'antiproton. Il caract\'erise l'intensit\'e de la source magn\'etique. L'\'enconc\'e \cite{Notes} nous dit que $B(x) = B_0(1 + \kappa x) = B_0 + B_0x\kappa$. Il est \'evident que cette fonction d\'epend en entier de la valeur de $x$, et a donc des extremas en fonction des extremas de la fonction $f(x) = x$. Sur les figures suivantes, o\`u les positions des particules et les valeurs des moments magn\'etiques des particules sont repr\'esent\'ees sur un intervalle de temps de $\Delta t = 1\times 10^{-7}$, pour qu'on puisse voir avec plus de pr\'ecision ce que se passe, on voit que $\mu$ est inversement proportionnel \`a la position de la particule.
+\noindent La quantit\'e $\mu$ s'appelle le moment magn\'etique d'une particule, dans notre cas soit du proton, soit de l'antiproton. Il caract\'erise l'intensit\'e de la source magn\'etique. L'\'enonc\'e \cite{Notes} nous dit que $B(x) = B_0(1 + \kappa x) = B_0 + B_0x\kappa$. Il est \'evident que cette fonction d\'epend enti\`erement de la valeur de $x$, et a donc des extrema en fonction des extrema de la fonction $f(x) = x$. Sur les figures \ref{Fig: Pos Prot}, \ref{Fig: Pos Anti}, \ref{Fig: mm Prot} et \ref{Fig: mm Anti}, o\`u les positions des particules et les valeurs des moments magn\'etiques des particules sont repr\'esent\'ees sur un intervalle de temps $\Delta t = 1\times 10^{-7}$ s, pour qu'on puisse voir avec plus de pr\'ecision ce qui se passe, on voit que $\mu$ est inversement proportionnel \`a la position de la particule.
 
 \begin{figure}
 \begin{minipage}[c]{.46\linewidth}
@@ -459,16 +460,16 @@ La quantit\'e $\mu$ s'appelle le moment magn\'etique d'une particule, dans notre
 
 \section{Conclusions}
 
-Apr\`es avoir fait cet exercice, on conna\^it mieux les int\'egrateurs et leurs sp\'ecificit\'es propres. 
+ Apr\`es avoir fait cet exercice, on conna\^it mieux les int\'egrateurs et leurs sp\'ecificit\'es propres. 
 
-On remarque que la convergence de l'erreur sur la position et sur la vitesse sont du m\^eme ordre pour tous les int\'egrateurs \'etudi\'es. 
+ On remarque que la convergence de l'erreur sur la position et sur la vitesse sont du m\^eme ordre pour tous les int\'egrateurs \'etudi\'es. 
 On peut voir que plus l'int\'egrateur est compliqu\'e, plus son erreur est basse et que tous ne convergent pas de la m\^eme mani\`ere lorsque $\Delta t$ devient plus grand. 
 
 Quant \`a la conservation de l'\'energie m\'ecanique, il est visible que les sch\'emas d'Euler explicite et de Runge-Kutta d'ordre 2 sont les moins pr\'ecis.  Ensuite, Euler-Cromer converge vers la bonne valeur d\`es que le pas de temps minimum est respect\'e. De plus, Euler implicite est stable, mais il dissipe un peu d'\'energie \`a cause des erreurs num\'eriques. 
 On remarque aussi que l'int\'egrateur le plus efficace est celui de Boris-Buneman car il conserve exactement l'\'energie m\'ecanique, aux arrondis pr\`es
 
 %Ta partie
-L'application \`a un cas, o\`u le champ magn\'etique est variable introduit le moment magn\'etique, qui caract\'erise l'intensit\'e du champ magn\'etique, et mets en \'evidence le fait que celui-ci est inversement proportionnel \`a la position de la particule.
+L'application \`a un cas o\`u le champ magn\'etique est variable, introduit le moment magn\'etique, qui caract\'erise l'intensit\'e du champ magn\'etique, et met en \'evidence le fait que celui-ci est inversement proportionnel \`a la position de la particule.
 
 
 Ainsi, on a appris \`a conna\^itre plusieurs int\'egrateurs et on voit que pour des composantes diff\'erentes, les int\'egrateurs n'agissent pas froc\'ement de la m\^eme mani\`ere. On va pouvoir \^etre plus \`a m\^eme de choisir celui qui convient le mieux lors de futurs exercices. Il faut cependant savoir trouver l'\'equilibre entre l'erreur que l'on est pr\^et \`a avoir et la place et que l'on a pour calculer.
