@@ -9,5 +9,6 @@
 \contentsline {subsubsection}{\numberline {3.1.1}Convergence num\'erique de l'erreur sur la position et la vitesse}{4}{subsubsection.3.1.1}
 \contentsline {subsubsection}{\numberline {3.1.2}Non-conservation de l'Energie m\'ecanique}{4}{subsubsection.3.1.2}
 \contentsline {subsection}{\numberline {3.2}Cas avec un champ \'electrique et un champ magn\'etique : d\'erive $\mathaccentV {vec}17E{E}\times \mathaccentV {vec}17E{B}$}{5}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Etude de convergence en $\Delta t$}{5}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.1}\'Etude de convergence en $\Delta t$}{5}{subsubsection.3.2.1}
+\contentsline {subsubsection}{\numberline {3.2.2}Conservation de l'\'energie}{6}{subsubsection.3.2.2}
 \contentsline {section}{\numberline {4}Conclusions}{6}{section.4}
