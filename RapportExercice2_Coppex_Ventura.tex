@@ -385,6 +385,21 @@ On peut soustraire la valeur dans l'\'equation de $v_x(t)$ de l'\'equation \ref{
 v_x(t) = - v_0\sin(\frac{qB_0}{m}t) + \frac{E_0}{B_0}\cos(\frac{qB_0}{m}t)
 \end{equation}
 
+\begin{figure}[h]
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{traj_RK2_b_iii.png}
+					\caption{\em\label{Fig: Traj R-K-2} La trajectoire de la particule dans le sch\'ema de Runge-Kutta d'ordre 2.}
+				\end{minipage}
+				\hfill%
+				\begin{minipage}[c]{.46\linewidth}
+					\centering
+					\includegraphics[scale = 0.6]{traj_BB_b_iii.png}
+					\caption{\em\label{Fig: Traj B-B} La trajectoire de la particule dans le sch\'ema de Boris-Buneman.}
+				\end{minipage}
+			\end{figure}
+
+On voit sur la figure de Runge-Kutta \ref{Fig: Traj R-K-2} et sur la figure de Boris-Buneman \ref{Fig: Traj B-B} que les trajectoires font une ellipse, ce qui est attendu, car la translation fait que le r\'ef\'erentiel "suit" la particule le long de l'axe $\hat{x}$.
 
 
 \subsection{Cas d'un champ magn\'etique non uniforme : d\'erive $\Vec{B}\times\nabla B$}
@@ -453,6 +468,8 @@ Quant \`a la conservation de l'\'energie m\'ecanique, il est visible que les sch
 On remarque aussi que l'int\'egrateur le plus efficace est celui de Boris-Buneman car il conserve exactement l'\'energie m\'ecanique, aux arrondis pr\`es
 
 %Ta partie
+L'application \`a un cas, o\`u le champ magn\'etique est variable introduit le moment magn\'etique, qui caract\'erise l'intensit\'e du champ magn\'etique, et mets en \'evidence le fait que celui-ci est inversement proportionnel \`a la position de la particule.
+
 
 Ainsi, on a appris \`a conna\^itre plusieurs int\'egrateurs et on voit que pour des composantes diff\'erentes, les int\'egrateurs n'agissent pas froc\'ement de la m\^eme mani\`ere. On va pouvoir \^etre plus \`a m\^eme de choisir celui qui convient le mieux lors de futurs exercices. Il faut cependant savoir trouver l'\'equilibre entre l'erreur que l'on est pr\^et \`a avoir et la place et que l'on a pour calculer.
 
